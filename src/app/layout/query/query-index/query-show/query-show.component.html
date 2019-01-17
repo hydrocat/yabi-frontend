@@ -1,0 +1,53 @@
+<!-- <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{query.name}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{query.description}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    
+    <mat-action-row>
+      <button mat-button>Correr</button>
+    </mat-action-row>
+  </mat-expansion-panel> -->
+<h2 mat-dialog-title>Consulta: {{query.name}}</h2>
+
+<mat-dialog-content *ngIf='!queryRan'>
+  {{query.description}}
+</mat-dialog-content>
+
+<mat-dialog-content *ngIf='queryRan'>
+    <div class="mat-elevation-z8">
+      <mat-table [dataSource]="dataSource">
+        <ng-container [matColumnDef]='col' *ngFor='let col of displayedColumns'>
+            <mat-header-cell *cdkHeaderCellDef>
+                {{col}}
+              </mat-header-cell>
+
+              <mat-cell *cdkCellDef="let element">
+                  {{element[displayedColumns.indexOf(col)]}}
+              </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns">
+        </mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"
+          matRipple
+          style="cursor: pointer">
+        </mat-row>
+      </mat-table>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button
+    color="primary"
+    (click)='runQuery()'  
+  >
+  Correr</button>
+  <button mat-button>
+    Download
+    <mat-icon>cloud_download</mat-icon>
+  </button>
+</mat-dialog-actions>

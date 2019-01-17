@@ -3,29 +3,35 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "yabi-frontend": {
+    "ng-material": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/yabi-frontend",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
+            "polyfills": "src/polyfills.ts",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/favicon.ico"
             ],
             "styles": [
-              "src/styles.css"
+                "src/styles/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/chart.js/dist/Chart.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -43,25 +49,32 @@
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "yabi-frontend:build"
+            "browserTarget": "ng-material:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "yabi-frontend:build:production"
+              "browserTarget": "ng-material:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "yabi-frontend:build"
+            "browserTarget": "ng-material:build"
           }
         },
         "test": {
@@ -71,13 +84,15 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
-            "styles": [
-              "src/styles.css"
+            "scripts": [
+              "node_modules/chart.js/dist/Chart.js"
             ],
-            "scripts": [],
+            "styles": [
+                "styles.scss"
+            ],
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/favicon.ico"
             ]
           }
         },
@@ -95,19 +110,20 @@
         }
       }
     },
-    "yabi-frontend-e2e": {
+    "ng-material-e2e": {
       "root": "e2e/",
       "projectType": "application",
+      "prefix": "",
       "architect": {
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "yabi-frontend:serve"
+            "devServerTarget": "ng-material:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "yabi-frontend:serve:production"
+              "devServerTarget": "ng-material:serve:production"
             }
           }
         },
@@ -116,12 +132,12 @@
           "options": {
             "tsConfig": "e2e/tsconfig.e2e.json",
             "exclude": [
-              "**/node_modules/**"
+                "**/node_modules/**"
             ]
           }
         }
       }
     }
   },
-  "defaultProject": "yabi-frontend"
+  "defaultProject": "ng-material"
 }
