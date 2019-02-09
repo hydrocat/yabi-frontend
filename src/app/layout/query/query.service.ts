@@ -20,6 +20,7 @@ export class QueryService {
   public getQueries (): any {
     const query = this.http.get(this.queryUrl)
     .pipe(
+      tap(console.log),
       pluck('_embedded', 'sqlQueries')
       );
 

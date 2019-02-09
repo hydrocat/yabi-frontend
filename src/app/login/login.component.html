@@ -1,21 +1,21 @@
 <div class="login-page">
     <div class="content">
-        <!-- <h1 class="app-name">Sb Admin Material</h1> -->
+        <!-- <h1 class="app-name">yabi</h1> -->
         <form class="login-form" fxFlex  >
             <div class="text-center">
-                <h2 class="app-name">Sb Admin Material</h2>
+                <h2 class="app-name">yabi</h2>
             </div>
             <div fxFlex  fxlayout="row" fxlayout.lt-md="column">
                 <div fxFlexFill>
                     <mat-form-field class="w-100">
-                        <input matInput placeholder="Email">
+                        <input matInput placeholder="Email" [(ngModel)]='username' name='username'>
                     </mat-form-field>
                 </div>
             </div>
             <div fxFlex  fxLayout="row" fxLayout.lt-md="column">
                 <div fxFlexFill>
                     <mat-form-field class="w-100">
-                        <input matInput type="password" placeholder="Password">
+                        <input matInput type="password" placeholder="Password" [(ngModel)]='password' name='password'>
                     </mat-form-field>
                 </div>
             </div>

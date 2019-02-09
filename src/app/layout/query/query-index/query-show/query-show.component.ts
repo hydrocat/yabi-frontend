@@ -32,13 +32,6 @@ export class QueryShowComponent implements OnInit {
   }
 
   download(): void {
-
-    this.query$.run(this.query)
-      .subscribe( (qdata: Array<Array<any>>) => {
-        this.displayedColumns = qdata.shift();
-        this.dataSource = new MatTableDataSource(qdata);
-        this.queryRan = true;
-
     console.log('start download:');
     const str = [
       this.displayedColumns,
@@ -59,6 +52,5 @@ export class QueryShowComponent implements OnInit {
     a.click();
     window.URL.revokeObjectURL(url);
     a.remove();
-  });
   }
 }
