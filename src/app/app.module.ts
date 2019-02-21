@@ -1,13 +1,7 @@
 import { LayoutModule } from '@angular/cdk/layout';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { NgModule } from '@angular/core';
-import {
-    MatButtonModule,
-    MatIconModule,
-    MatListModule,
-    MatSidenavModule,
-    MatToolbarModule
-} from '@angular/material';
+import { NgModule, ErrorHandler } from '@angular/core';
+import { SharedModule } from './shared/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -17,7 +11,11 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { AuthInterceptor } from './authentication.service';
+import { AuthInterceptor } from './authenticationInterceptor';
+import { SnackBarErrorHandler } from './snackBarErrorHandler';
+import { MatSnackBarModule } from '@angular/material';
+import { ApiEndpoint } from './shared/services/apiEndpoint';
+import { RouterModule } from '@angular/router';
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
     /* for development
@@ -47,18 +45,20 @@ export const createTranslateLoader = (http: HttpClient) => {
         })
     ],
     exports: [
-        MatButtonModule,
-        MatIconModule,
-        MatListModule,
-        MatSidenavModule,
-        MatToolbarModule
+        SharedModule
     ],
     providers: [
+        ApiEndpoint,
+        SharedModule,
         AuthInterceptor,
         {
             provide: HTTP_INTERCEPTORS,
-            useClass: AuthInterceptor,
-            multi: true
+            useExisting: AuthInterceptor,
+            multi: true,
+        },
+        {
+            provide: ErrorHandler,
+            useClass: SnackBarErrorHandler,
         }
     ],
     bootstrap: [AppComponent]

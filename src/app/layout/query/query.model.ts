@@ -4,15 +4,6 @@ export class Query {
     description: string;
     command: string;
     id: number;
+    permission: string;
 
-    constructor(httpQuery: any) {
-        this.name = httpQuery.name;
-        this.description = httpQuery.description;
-        this.id = this.getId(httpQuery['_links']['self']['href']) ;
-    }
-
-    private getId(selfLink: string): number {
-        const tokens = selfLink.split('/');
-        return Number( tokens[tokens.length - 1] );
-    }
 }
