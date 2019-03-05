@@ -1,9 +1,10 @@
 export class Query {
-
-    name: string;
-    description: string;
-    command: string;
-    id: number;
-    permission: string;
-
+  constructor(
+    public name?: string,
+    public description?: string,
+    public id?: number,
+    public command?: string,
+    public permission?,
+    public directory?
+  ) {}
 }

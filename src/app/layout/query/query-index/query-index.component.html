@@ -1,10 +1,10 @@
-<p>
-  query-index works!
-</p>
+<button mat-fab class="fab-mini" (click)="onQueryNew()">
+  <i class="material-icons">add</i>
+</button>
 
 <div>
   <mat-form-field>
-    <input matInput [formControl]="querySearch" placeholder="Pesquisar">
+    <input matInput [formControl]="querySearch" placeholder="Pesquisar" />
   </mat-form-field>
 </div>
 
@@ -14,28 +14,30 @@
       <mat-header-cell *cdkHeaderCellDef>
         Name
       </mat-header-cell>
-      
+
       <mat-cell *cdkCellDef="let query">
-        {{query.name}} 
-        ({{query.id}})
+        {{ query.name }}
+        ({{ query.id }})
       </mat-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="description">
-        <mat-header-cell *cdkHeaderCellDef>
-          Description
-        </mat-header-cell>
-        
-        <mat-cell *cdkCellDef="let query">
-          {{query.description}}
-        </mat-cell>
-      </ng-container>
+      <mat-header-cell *cdkHeaderCellDef>
+        Description
+      </mat-header-cell>
 
-      <mat-header-row *cdkHeaderRowDef="diplayedColumns"></mat-header-row>
-      <mat-row *cdkRowDef="let query; columns: diplayedColumns"
-        (click)="onQueryShow(query)"
-        matRipple
-        style="cursor: pointer"></mat-row>
+      <mat-cell *cdkCellDef="let query">
+        {{ query.description }}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *cdkHeaderRowDef="diplayedColumns"></mat-header-row>
+    <mat-row
+      *cdkRowDef="let query; columns: diplayedColumns"
+      (click)="onQueryShow(query)"
+      matRipple
+      style="cursor: pointer"
+    ></mat-row>
   </mat-table>
 </div>
 <!-- <mat-accordion>

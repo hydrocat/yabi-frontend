@@ -5,20 +5,22 @@ import { QueryService } from '../query.service';
 import { QueryIndexComponent } from './query-index.component';
 import { QueryShowComponent } from './query-show/query-show.component';
 
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from '../../../shared/shared.module';
+import { QueryFormComponent } from './query-form/query-form.component';
 
 
 @NgModule({
-  declarations: [ QueryIndexComponent, QueryShowComponent ],
+  declarations: [ QueryIndexComponent, QueryShowComponent, QueryFormComponent ],
   exports: [
     QueryShowComponent,
-    QueryIndexComponent
+    QueryIndexComponent,
+    QueryFormComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
   ],
   providers: [ QueryService ],
-  entryComponents: [ QueryShowComponent ]
+  entryComponents: [ QueryShowComponent, QueryFormComponent]
 })
 export class QueryIndexModule { }

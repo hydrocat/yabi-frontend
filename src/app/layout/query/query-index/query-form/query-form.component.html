@@ -1,0 +1,45 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-dialog-content class="form">
+    <h2>{{ title }}</h2>
+
+    <mat-form-field>
+      <input matInput placeholder="Query Name" formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea
+        matInput
+        placeholder="Description"
+        formControlName="description"
+        cdkTextareaAutosize
+      ></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea
+        matInput
+        placeholder="SQL Command"
+        formControlName="command"
+        cdkTextareaAutosize
+        formControlName="command"
+      ></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Database" formControlName="directory">
+        <mat-option value="option">Option</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Permission" formControlName="permission">
+        <mat-option value="/estig">/estig</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button>Try</button>
+    <button mat-button color="primary" type="submit">Save</button>
+  </mat-dialog-actions>
+</form>
