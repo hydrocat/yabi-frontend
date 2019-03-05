@@ -22,4 +22,8 @@ export class QueryService {
     return this.http.get(this.api.RUNQUERY(9));
   }
 
+  public create(query: Query): Observable<any> {
+    return this.http.post(this.api.ADMIN_QUERIES, query);
+  }
+
 }
