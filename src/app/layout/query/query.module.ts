@@ -12,4 +12,4 @@ import { QueryIndexModule } from './query-index/query-index.module';
   declarations: [QueryComponent],
   providers: [QueryService]
 })
-export class QueryModule { }
+export class QueryModule {}

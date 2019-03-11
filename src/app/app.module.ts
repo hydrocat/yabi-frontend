@@ -56,10 +56,10 @@ export const createTranslateLoader = (http: HttpClient) => {
             useExisting: AuthInterceptor,
             multi: true,
         },
-        {
-            provide: ErrorHandler,
-            useClass: SnackBarErrorHandler,
-        }
+        // {
+        //     provide: ErrorHandler,
+        //     useClass: SnackBarErrorHandler,
+        // }
     ],
     bootstrap: [AppComponent]
 })

@@ -1,24 +1,28 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Input, Inject, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { QueryService } from '../../query.service';
 import {
   MAT_DIALOG_DATA,
   MatTableDataSource,
   MatDialog
 } from '@angular/material';
-import { Query } from '../../query.model';
+import { Query, HateoasQuery } from '../../query.model';
 import { DataSource } from '@angular/cdk/table';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { QueryFormComponent } from '../query-form/query-form.component';
+import { tap, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-query-show',
   templateUrl: './query-show.component.html',
   styleUrls: ['./query-show.component.scss']
 })
-export class QueryShowComponent implements OnInit {
+export class QueryShowComponent implements OnInit, OnDestroy {
+  @Output() public deleted: EventEmitter<Query>;
   public dataSource: MatTableDataSource<any>;
   public displayedColumns: Array<string>;
   public queryRan = false;
+
+  private _unsubscribe = new Subject();
 
   constructor(
     private query$: QueryService,
@@ -26,7 +30,13 @@ export class QueryShowComponent implements OnInit {
     private _matDialog: MatDialog
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.deleted  = new EventEmitter<null>();
+   }
+  ngOnDestroy() {
+    this._unsubscribe.next();
+    this._unsubscribe.complete();
+  }
 
   runQuery(): Subscription {
     return this.query$.run(this.query).subscribe((data: Array<Array<any>>) => {
@@ -35,6 +45,7 @@ export class QueryShowComponent implements OnInit {
       this.queryRan = true;
     });
   }
+
   onQueryEdit() {
     this._matDialog.open(QueryFormComponent, {
       minWidth: '60%',
@@ -43,8 +54,12 @@ export class QueryShowComponent implements OnInit {
     });
   }
 
+  onQueryDelete() {
+    // this.query$.delete(this.query).pipe(takeUntil(this._unsubscribe)).subscribe();
+    this.deleted.emit(this.query);
+  }
+
   download(): void {
-    console.log('start download:');
     const str = [this.displayedColumns, ...this.dataSource.data]
       .map((line: Array<string>) => {
         return line.map((value: string) => '\'' + value + '\'').join(',');

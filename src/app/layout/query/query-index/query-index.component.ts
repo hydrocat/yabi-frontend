@@ -8,7 +8,7 @@ import {
   tap
 } from 'rxjs/operators';
 import { MatTableDataSource, MatDialog } from '@angular/material';
-import { Query } from '../query.model';
+import { Query, HateoasQuery } from '../query.model';
 import { QueryShowComponent } from './query-show/query-show.component';
 import { QueryFormComponent } from './query-form/query-form.component';
 import { FormControl } from '@angular/forms';
@@ -21,15 +21,14 @@ import { FormControl } from '@angular/forms';
 export class QueryIndexComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private query: QueryService, private _matDialog: MatDialog) {}
 
-  public dataSource: MatTableDataSource<any>;
+  public dataSource: MatTableDataSource<Query>;
   public diplayedColumns = ['name', 'description'];
   private _unsubscribe: Subject<void> = new Subject();
-  public queries: Query[];
   public querySearch: FormControl;
 
   ngOnInit() {
     this.query
-      .getQueries()
+      .index()
       .pipe(takeUntil(this._unsubscribe))
       .subscribe((data: Query[]) => {
         this.dataSource = new MatTableDataSource(data);
@@ -50,17 +49,42 @@ export class QueryIndexComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onQueryShow(query: Query): void {
-    this._matDialog.open(QueryShowComponent, {
+    const dialog = this._matDialog.open(QueryShowComponent, {
       minWidth: '60%',
       minHeight: '50%',
       data: query
     });
+
+    dialog.afterOpened().subscribe(() => {
+      dialog.componentInstance.deleted.subscribe(() => {
+        dialog.close();
+        console.log(this.dataSource.data.filter( (e: Query) => e.id !== query.id));
+        this.dataSource.data = this.dataSource.data.filter( (e: Query) => e.id !== query.id);
+      });
+    });
   }
 
   onQueryNew(): void {
-    this._matDialog.open(QueryFormComponent, {
+    const dialog = this._matDialog.open(QueryFormComponent, {
       minWidth: '60%',
       minHeight: '50%'
+    });
+
+    dialog.afterOpened().subscribe(() => {
+      console.log('opened');
+      console.log(dialog.componentInstance.saved.observers);
+      dialog.componentInstance.saved.subscribe((q: HateoasQuery) => {
+        console.log('adding new entry!');
+        console.log(q);
+        console.log(q.toQuery());
+        this.dataSource.data = this.dataSource.data.concat([q.toQuery()]);
+        dialog.close();
+      });
+    });
+
+    dialog.beforeClosed().subscribe(() => {
+      console.log('removing subscription');
+      dialog.componentInstance.saved.unsubscribe();
     });
   }
 

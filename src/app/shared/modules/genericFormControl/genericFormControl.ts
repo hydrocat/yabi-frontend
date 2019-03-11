@@ -1,9 +1,11 @@
-import { FormGroup, FormControl } from "@angular/forms";
+import { FormGroup, FormControl } from '@angular/forms';
 
-export function genericFormControl(instance: any, blockedAttributes?: string[]): FormGroup {
+export function genericFormControl(
+  instance: any,
+  blockedAttributes?: string[]
+): FormGroup {
   const keys = Object.keys(instance);
-  const attributes = keys.filter(key => !(blockedAttributes.includes(key)));
-  console.log(attributes);
+  const attributes = keys.filter(key => !blockedAttributes.includes(key));
 
   const controls = {};
   attributes.forEach(attribute => {

@@ -9,8 +9,6 @@ import { QueryService } from './query.service';
 export class QueryComponent implements OnInit {
   constructor(private query: QueryService) { }
 
-  ngOnInit() {
-    console.log('Passei QueryComponent');
-  }
+  ngOnInit() { }
 
 }

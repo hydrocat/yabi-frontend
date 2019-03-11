@@ -1,6 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <mat-dialog-content class="form">
     <h2>{{ title }}</h2>
+    <h3>{{ saved | async }}</h3>
 
     <mat-form-field>
       <input matInput placeholder="Query Name" formControlName="name" />
@@ -25,16 +26,40 @@
       ></textarea>
     </mat-form-field>
 
-    <mat-form-field>
+    <!-- <mat-form-field>
       <mat-select placeholder="Database" formControlName="directory">
         <mat-option value="option">Option</mat-option>
       </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
 
     <mat-form-field>
-      <mat-select placeholder="Permission" formControlName="permission">
-        <mat-option value="/estig">/estig</mat-option>
-      </mat-select>
+      <input
+        type="text"
+        matInput
+        placeholder="Directory"
+        formControlName="directory"
+        [matAutocomplete]="directory"
+      />
+      <mat-autocomplete #directory="matAutocomplete">
+        <mat-option *ngFor="let directory of (directories | async)" [value]="directory.id">
+          {{ directory.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>    
+
+    <mat-form-field>
+      <input
+        type="text"
+        matInput
+        placeholder="Permission"
+        formControlName="permission"
+        [matAutocomplete]="permission"
+      />
+      <mat-autocomplete #permission="matAutocomplete">
+        <mat-option *ngFor="let permission of (permissisons | async)" [value]="permission.id">
+          {{ permission.nodePath }}
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
   </mat-dialog-content>
 
