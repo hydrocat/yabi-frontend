@@ -16,8 +16,8 @@ export class DirectoryService {
     return this.http$.get<DirectoryRepository>(this.api.DIRECTORIES).pipe(
       map(
         (pr: DirectoryRepository): Directory[] => {
-          return pr._embedded.directories.map(p => {
-            return Object.assign(new Directory(), p);
+          return pr._embedded.directories.map(d => {
+            return Object.assign(new Directory(), d);
           });
         }
       )

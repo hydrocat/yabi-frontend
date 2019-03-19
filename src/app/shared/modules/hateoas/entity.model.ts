@@ -7,7 +7,11 @@ export class Entity {
     }
   ) {}
 
-  get id() {
+  get uri(): string {
     return this._links.self.href;
+  }
+
+  get id(): number {
+    return parseInt(this._links.self.href.split('/').slice(-1)[0], 10);
   }
 }

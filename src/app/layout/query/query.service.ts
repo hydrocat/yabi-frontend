@@ -30,12 +30,14 @@ export class QueryService {
   public delete(query: Query | HateoasQuery) {
     let deleteUrl = '';
     if (query instanceof HateoasQuery) {
-      deleteUrl = query.id;
+      deleteUrl = query.uri;
     } else {
       deleteUrl = this.api.ADMIN_QUERIES.concat(`/${query.id}`);
     }
     return this.http.delete(deleteUrl);
   }
+
+  public patch(query: Query | HateoasQuery) { }
 }
 
 // src/app/app.module.ts                       |  8 +--

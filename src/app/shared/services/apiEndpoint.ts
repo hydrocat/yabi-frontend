@@ -17,6 +17,6 @@ export class ApiEndpoint {
     // Directory
     public DIRECTORIES = `${this.BASE}directories`;
 
-    public RUNQUERY = (id: string) => `${this.BASE}runQuery/${id}`;
+    public RUNQUERY = (id: number) => `${this.BASE}runQuery/${id}`;
 
 }

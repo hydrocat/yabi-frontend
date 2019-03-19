@@ -55,8 +55,9 @@ export class QueryShowComponent implements OnInit, OnDestroy {
   }
 
   onQueryDelete() {
-    // this.query$.delete(this.query).pipe(takeUntil(this._unsubscribe)).subscribe();
-    this.deleted.emit(this.query);
+    this.query$.delete(this.query).pipe(takeUntil(this._unsubscribe)).subscribe(
+      () => this.deleted.emit(this.query)
+    );
   }
 
   download(): void {

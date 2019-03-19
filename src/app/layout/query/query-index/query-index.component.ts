@@ -58,7 +58,6 @@ export class QueryIndexComponent implements OnInit, OnDestroy, AfterViewInit {
     dialog.afterOpened().subscribe(() => {
       dialog.componentInstance.deleted.subscribe(() => {
         dialog.close();
-        console.log(this.dataSource.data.filter( (e: Query) => e.id !== query.id));
         this.dataSource.data = this.dataSource.data.filter( (e: Query) => e.id !== query.id);
       });
     });

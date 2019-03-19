@@ -3,6 +3,9 @@
         <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/query']">
             <mat-icon class="sidebar-icon">view_list</mat-icon> {{ 'Query' | translate }}
         </a>
+        <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/permission']">
+            <mat-icon class="sidebar-icon">how_to_reg</mat-icon> {{'Permissions' | translate }}
+        </a>
         <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/dashboard']">
             <mat-icon class="sidenav-icon">dashboard</mat-icon> {{ 'Dashboard' | translate }}
         </a>

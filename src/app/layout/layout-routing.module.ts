@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LayoutComponent } from './layout.component';
+import { PermissionComponent } from './permission/permission.component';
 
 const routes: Routes = [
     {
@@ -44,6 +45,10 @@ const routes: Routes = [
             {
                 path: 'query',
                 loadChildren: './query/query.module#QueryModule'
+            },
+            {
+                path: 'permission',
+                component: PermissionComponent
             }
         ]
     }
