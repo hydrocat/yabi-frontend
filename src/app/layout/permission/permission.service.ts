@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiEndpoint } from '../../shared/services/apiEndpoint';
-import { Permission, PermissionRepository } from './permission.model';
+import { HateoasPermission, PermissionRepository } from './permission.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -11,12 +11,12 @@ import { map } from 'rxjs/operators';
 export class PermissionService {
   constructor(private http$: HttpClient, private api: ApiEndpoint) {}
 
-  index(): Observable<Permission[]> {
+  index(): Observable<HateoasPermission[]> {
     return this.http$.get<PermissionRepository>(this.api.PERMISSIONS).pipe(
       map(
-        (pr: PermissionRepository): Permission[] => {
+        (pr: PermissionRepository): HateoasPermission[] => {
           return pr._embedded.permissionTrees.map(p => {
-            return Object.assign(new Permission(), p);
+            return Object.assign(new HateoasPermission(), p);
           });
         }
       )

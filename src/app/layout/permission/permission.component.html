@@ -1,0 +1,46 @@
+<h2>My Permissions</h2>
+
+<button mat-fab class="fab-mini" (click)="onPermissionNew()">
+  <i class="material-icons">add</i>
+</button>
+
+<div>
+  <mat-form-field>
+    <input matInput [formControl]="search" placeholder="Pesquisar" />
+  </mat-form-field>
+</div>
+
+<div class="mat-elevation-z8">
+  <mat-table [dataSource]="dataSource">
+    <ng-container cdkColumnDef="nodePath">
+      <mat-header-cell *cdkHeaderCellDef>
+        Path
+      </mat-header-cell>
+
+      <mat-cell *cdkCellDef="let Permission">
+        {{ Permission.nodePath }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="description">
+      <mat-header-cell *cdkHeaderCellDef>
+        Description
+      </mat-header-cell>
+
+      <mat-cell *cdkCellDef="let Permission">
+        {{ Permission.description }}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *cdkHeaderRowDef="diplayedColumns"></mat-header-row>
+    <mat-row
+      *cdkRowDef="let Permission; columns: diplayedColumns"
+      (click)="onPermissionShow(Permission)"
+      matRipple
+      style="cursor: pointer"
+    ></mat-row>
+  </mat-table>
+</div>
+<!-- <mat-accordion>
+    <app-Permission-item *ngFor='let q of queries' [Permission]='q'></app-Permission-item>
+</mat-accordion>   -->

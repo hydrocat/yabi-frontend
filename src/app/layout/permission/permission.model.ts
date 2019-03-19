@@ -5,10 +5,10 @@ import { Entity } from '../../shared/modules/hateoas/entity.model';
 export class PermissionRepository extends PagingAndSortingRepository<PermissionAcessor> {}
 
 export interface PermissionAcessor {
-  permissionTrees: Permission[];
+  permissionTrees: HateoasPermission[];
 }
 
-export class Permission extends Entity {
+export class HateoasPermission  extends Entity {
   constructor(
     public nodePath?: string,
     public description?: string,
