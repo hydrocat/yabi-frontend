@@ -59,7 +59,7 @@ export class QueryFormComponent implements OnInit, OnDestroy {
     }
     this.form = genericFormControl(this.query, ['id']);
     this.directories = this.deirectory$.index();
-    this.permission$.index().subscribe(values => {
+    this.permission$.allPermissions().subscribe(values => {
       this.permissions.push(...values);
       this.filteredPermissisons = this.form.valueChanges.pipe(
         map(form => form.permission), // from form to permission value

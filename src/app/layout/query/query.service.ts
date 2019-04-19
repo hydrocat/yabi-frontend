@@ -15,6 +15,10 @@ export class QueryService {
     return this.http.get<Query[]>(this.api.QUERIES);
   }
 
+  public find(id: number): Observable<HateoasQuery> {
+    return this.http.get<HateoasQuery>(this.api.FIND_QUERY(id));
+  }
+
   public run(query: Query): Observable<any> {
     console.log('Running query: ', query);
     return this.http.get(this.api.RUNQUERY(query.id));

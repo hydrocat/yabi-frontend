@@ -1,0 +1,43 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-dialog-content class="form">
+    <h2>{{ title }}</h2>
+    <h3>{{ saved | async }}</h3>
+
+    <mat-form-field>
+      <mat-select placeholder="Parent" formControlName="parent">
+        <!-- <mat-autocomplete #directory="matAutocomplete"> -->
+        <mat-option
+          *ngFor="let directory of (directories$.index() | async)"
+          [value]="directory.uri"
+        >
+          {{ directory.name }}
+        </mat-option>
+      </mat-select>
+      <!-- </mat-autocomplete> -->
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Path" formControlName="nodePath" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea
+        matInput
+        placeholder="Description"
+        formControlName="description"
+        cdkTextareaAutosize
+      ></textarea>
+    </mat-form-field>
+
+    <!-- <mat-form-field>
+        <mat-select placeholder="Database" formControlName="directory">
+          <mat-option value="option">Option</mat-option>
+        </mat-select>
+      </mat-form-field> -->
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button>Try</button>
+    <button mat-button color="primary" type="submit">Save</button>
+  </mat-dialog-actions>
+</form>

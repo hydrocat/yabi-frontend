@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DialogComponent } from './dialog.component';
+import { PermissionFormComponent } from './permission-form.component';
 
-describe('DialogComponent', () => {
-  let component: DialogComponent;
-  let fixture: ComponentFixture<DialogComponent>;
+describe('PermissionFormComponent', () => {
+  let component: PermissionFormComponent;
+  let fixture: ComponentFixture<PermissionFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DialogComponent ]
+      declarations: [ PermissionFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DialogComponent);
+    fixture = TestBed.createComponent(PermissionFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

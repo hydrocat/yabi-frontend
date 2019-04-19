@@ -1,10 +1,11 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { HateoasPermission } from './permission.model';
+import { HateoasPermission, Permission } from './permission.model';
 import { PermissionService } from './permission.service';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialog } from '@angular/material';
 import { Subject } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { takeUntil, debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
+import { PermissionFormComponent } from './permission-form/permission-form.component';
 
 @Component({
   selector: 'app-permission',
@@ -13,7 +14,7 @@ import { takeUntil, debounceTime, distinctUntilChanged, tap } from 'rxjs/operato
 })
 export class PermissionComponent implements OnInit, AfterViewInit {
 
-  constructor(private ps: PermissionService) {}
+  constructor(private ps: PermissionService, private _matDialog: MatDialog) {}
 
   public dataSource: MatTableDataSource<HateoasPermission>;
   public diplayedColumns = ['nodePath', 'description'];
@@ -24,8 +25,8 @@ export class PermissionComponent implements OnInit, AfterViewInit {
     this.ps
       .index()
       .pipe(takeUntil(this._unsubscribe))
-      .subscribe((p: HateoasPermission[]) => {
-        this.dataSource = new MatTableDataSource(p);
+      .subscribe((p: Permission[]) => {
+        this.dataSource = new MatTableDataSource(p.map( x => x.toHateoas()));
       });
     this.search = new FormControl('');
   }
@@ -42,7 +43,10 @@ export class PermissionComponent implements OnInit, AfterViewInit {
   }
 
   public onPermissionNew() {
-    console.log('Permission-create not implemented');
+    this._matDialog.open(PermissionFormComponent, {
+      minWidth: '60%',
+      minHeight: '50%',
+    });
   }
 
   public onPermissionShow(p: HateoasPermission) {

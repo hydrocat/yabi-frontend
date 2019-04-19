@@ -21,6 +21,29 @@ export class HateoasPermission  extends Entity {
   ) {
     super(_links);
   }
+
+  toPermission(): Permission {
+    return new Permission(this.id, this.nodePath, this.description);
+  }
+}
+
+export class Permission {
+  constructor(
+    public id?: number,
+    public nodePath?: string,
+    public description?: string
+  ) {}
+
+  get uri(): string {
+    console.log(`permission ${this.id} has unknown uri`);
+    throw new Error(`permission ${this.id} has unknown uri`);
+  }
+
+  toHateoas(): HateoasPermission {
+    const p = new  HateoasPermission(this.nodePath, this.description);
+    p.id = this.id;
+    return p;
+  }
 }
 
 
