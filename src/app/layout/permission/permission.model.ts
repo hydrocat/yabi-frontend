@@ -23,7 +23,7 @@ export class HateoasPermission  extends Entity {
   }
 
   toPermission(): Permission {
-    return new Permission(this.id, this.nodePath, this.description);
+    return new Permission(this.id, this.nodePath, this.description, this._links.parent.href);
   }
 }
 
@@ -31,7 +31,8 @@ export class Permission {
   constructor(
     public id?: number,
     public nodePath?: string,
-    public description?: string
+    public description?: string,
+    public parent?: string
   ) {}
 
   get uri(): string {
@@ -42,6 +43,7 @@ export class Permission {
   toHateoas(): HateoasPermission {
     const p = new  HateoasPermission(this.nodePath, this.description);
     p.id = this.id;
+    p._links.parent.href = this.parent;
     return p;
   }
 }

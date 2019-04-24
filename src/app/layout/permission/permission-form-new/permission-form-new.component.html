@@ -1,0 +1,24 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-dialog-content class="form">
+    <h2>New Permission</h2>
+    <span>Parent: {{parent.nodePath}}({{parent.description}})</span>
+
+    <mat-form-field>
+      <input matInput placeholder="Path" formControlName="nodePath" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea
+        matInput
+        placeholder="Description"
+        formControlName="description"
+        cdkTextareaAutosize
+      ></textarea>
+    </mat-form-field>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button color="primary" (click)='onSubmit()'>Save</button>
+  </mat-dialog-actions>
+</form>

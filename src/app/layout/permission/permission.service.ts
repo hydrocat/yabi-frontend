@@ -33,4 +33,8 @@ export class PermissionService {
       )
     );
   }
+
+  create(permission: Permission): Observable<HateoasPermission> {
+    return this.http$.post<HateoasPermission>(this.api.ADMIN_PERMISSIONS, permission);
+  }
 }

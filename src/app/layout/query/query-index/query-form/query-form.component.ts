@@ -14,7 +14,7 @@ import { genericFormControl } from '../../../../shared/modules/genericFormContro
 import { Subject, Observable, of } from 'rxjs';
 import { PermissionService } from '../../../permission/permission.service';
 import { HateoasPermission } from '../../../permission/permission.model';
-import { Directory } from '../../../directory/directory.model';
+import { HateoasDirectory } from '../../../directory/directory.model';
 import { DirectoryService } from '../../../directory/directory.service';
 import { takeUntil, startWith, map, tap } from 'rxjs/operators';
 
@@ -30,7 +30,7 @@ export class QueryFormComponent implements OnInit, OnDestroy {
   @Output() public saved: EventEmitter<HateoasQuery>;
   public permissions: HateoasPermission[] = [];
   public filteredPermissisons: Observable<HateoasPermission[]>;
-  public directories: Observable<Directory[]>;
+  public directories: HateoasDirectory[];
   public directory: any;
   private _unsubscribe: Subject<void> = new Subject();
 
@@ -41,7 +41,7 @@ export class QueryFormComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private deirectory$: DirectoryService,
+    private directory$: DirectoryService,
     private permission$: PermissionService,
     private query$: QueryService,
     @Inject(MAT_DIALOG_DATA) public query: Query | null
@@ -58,7 +58,13 @@ export class QueryFormComponent implements OnInit, OnDestroy {
       this.title = 'Edit Query';
     }
     this.form = genericFormControl(this.query, ['id']);
-    this.directories = this.deirectory$.index();
+    this.form.value.permission = 'asd';
+    this.directory$.index().subscribe( dirs => {
+      this.directories = dirs;
+      console.log(this.form.value);
+      this.form.value['directory'] = this.directories.find( d => d.id === this.query.id);
+      console.log(this.form.value);
+    });
     this.permission$.allPermissions().subscribe(values => {
       this.permissions.push(...values);
       this.filteredPermissisons = this.form.valueChanges.pipe(

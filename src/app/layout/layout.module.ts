@@ -17,6 +17,7 @@ import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import { NavComponent } from './nav/nav.component';
 import { PermissionModule } from './permission/permission.module';
+import { DirectoryComponent } from './directory/directory.component';
 
 @NgModule({
     imports: [
@@ -33,6 +34,6 @@ import { PermissionModule } from './permission/permission.module';
         MatCardModule,
         PermissionModule
     ],
-    declarations: [LayoutComponent, NavComponent, TopnavComponent, SidebarComponent]
+    declarations: [LayoutComponent, NavComponent, TopnavComponent, SidebarComponent, DirectoryComponent ]
 })
 export class LayoutModule {}

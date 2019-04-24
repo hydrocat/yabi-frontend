@@ -2,14 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PermissionComponent } from './permission.component';
 import { SharedModule } from '../../shared/shared.module';
-import { PermissionFormComponent } from './permission-form/permission-form.component';
+import { PermissionFormEditComponent } from './permission-form-edit/permission-form-edit.component';
+import { PermissionFormNewComponent } from './permission-form-new/permission-form-new.component';
 
 @NgModule({
-  declarations: [PermissionComponent, PermissionFormComponent],
+  declarations: [PermissionComponent, PermissionFormEditComponent, PermissionFormNewComponent],
   imports: [
     CommonModule,
     SharedModule
   ],
-  entryComponents: [PermissionFormComponent]
+  entryComponents: [PermissionFormEditComponent, PermissionFormNewComponent]
 })
 export class PermissionModule { }

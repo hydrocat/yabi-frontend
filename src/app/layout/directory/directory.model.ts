@@ -5,10 +5,10 @@ import { Entity } from '../../shared/modules/hateoas/entity.model';
 export class DirectoryRepository extends PagingAndSortingRepository<DirectoryAcessor> {}
 
 export interface DirectoryAcessor {
-  directories: Directory[];
+  directories: HateoasDirectory[];
 }
 
-export class Directory extends Entity {
+export class HateoasDirectory extends Entity {
   constructor(
     public connectionString?: string,
     public name?: string,

@@ -70,19 +70,13 @@ export class QueryIndexComponent implements OnInit, OnDestroy, AfterViewInit {
     });
 
     dialog.afterOpened().subscribe(() => {
-      console.log('opened');
-      console.log(dialog.componentInstance.saved.observers);
       dialog.componentInstance.saved.subscribe((q: HateoasQuery) => {
-        console.log('adding new entry!');
-        console.log(q);
-        console.log(q.toQuery());
         this.dataSource.data = this.dataSource.data.concat([q.toQuery()]);
         dialog.close();
       });
     });
 
     dialog.beforeClosed().subscribe(() => {
-      console.log('removing subscription');
       dialog.componentInstance.saved.unsubscribe();
     });
   }

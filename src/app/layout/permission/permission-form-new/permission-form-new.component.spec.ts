@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PermissionFormComponent } from './permission-form.component';
+import { PermissionFormNewComponent } from './permission-form-new.component';
 
-describe('PermissionFormComponent', () => {
-  let component: PermissionFormComponent;
-  let fixture: ComponentFixture<PermissionFormComponent>;
+describe('PermissionFormNewComponent', () => {
+  let component: PermissionFormNewComponent;
+  let fixture: ComponentFixture<PermissionFormNewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PermissionFormComponent ]
+      declarations: [ PermissionFormNewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PermissionFormComponent);
+    fixture = TestBed.createComponent(PermissionFormNewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
