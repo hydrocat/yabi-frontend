@@ -4,7 +4,7 @@ export function genericFormControl(
   instance: any,
   blockedAttributes?: string[],
   initialValue?: {},
-  exceptions?: {}
+  extraKeyPair?: {}
 ): FormGroup {
   const keys = Object.keys(instance);
   const attributes = keys.filter(key => !blockedAttributes.includes(key));
@@ -12,7 +12,7 @@ export function genericFormControl(
   const controls = {};
   attributes.forEach(attribute => {
     const value =
-      (exceptions && exceptions[attribute]) ||
+      (extraKeyPair && extraKeyPair[attribute]) ||
       (initialValue && initialValue[attribute]) ||
       instance[attribute];
     console.log(value);

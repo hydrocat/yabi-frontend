@@ -9,25 +9,25 @@ import { ApiEndpoint } from '../../shared/services/apiEndpoint';
   providedIn: 'root'
 })
 export class QueryService {
-  constructor(private http: HttpClient, private api: ApiEndpoint) {}
+  constructor(private http$: HttpClient, private api: ApiEndpoint) {}
 
   public index(): Observable<Query[]> {
-    return this.http.get<Query[]>(this.api.QUERIES);
+    return this.http$.get<Query[]>(ApiEndpoint.QUERIES);
   }
 
   public find(id: number): Observable<HateoasQuery> {
-    return this.http.get<HateoasQuery>(this.api.FIND_QUERY(id));
+    return this.http$.get<HateoasQuery>(ApiEndpoint.FIND_QUERY(id));
   }
 
   public run(query: Query): Observable<any> {
     console.log('Running query: ', query);
-    return this.http.get(this.api.RUNQUERY(query.id));
+    return this.http$.get(ApiEndpoint.RUNQUERY(query.id));
   }
 
   public create(query: Query): Observable<HateoasQuery> {
     console.log('Creating query: ', query);
-    return this.http
-      .post<HateoasQuery>(this.api.ADMIN_QUERIES, query)
+    return this.http$
+      .post<HateoasQuery>(ApiEndpoint.ADMIN_QUERIES, query)
       .pipe(map(q => Object.assign(new HateoasQuery(), q)));
   }
 
@@ -36,9 +36,9 @@ export class QueryService {
     if (query instanceof HateoasQuery) {
       deleteUrl = query.uri;
     } else {
-      deleteUrl = this.api.ADMIN_QUERIES.concat(`/${query.id}`);
+      deleteUrl = ApiEndpoint.ADMIN_QUERIES.concat(`/${query.id}`);
     }
-    return this.http.delete(deleteUrl);
+    return this.http$.delete(deleteUrl);
   }
 
   public patch(query: Query | HateoasQuery) { }

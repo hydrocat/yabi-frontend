@@ -36,7 +36,7 @@ export class PermissionComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.login$.isAdmin()) {
       this.diplayedColumns.push('addChild');
       this.ps
-        .allPermissions()
+        .index()
         .pipe(takeUntil(this._unsubscribe))
         .subscribe((p: HateoasPermission[]) => {
           this.dataSource = new MatTableDataSource(p);
@@ -44,9 +44,10 @@ export class PermissionComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       // User has role `USER`
       this.ps
-        .index()
+        .userIndex()
         .pipe(takeUntil(this._unsubscribe))
         .subscribe((p: Permission[]) => {
+
           this.dataSource = new MatTableDataSource(p.map(x => x.toHateoas()));
         });
     }

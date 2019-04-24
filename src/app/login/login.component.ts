@@ -1,28 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-
+import { LoginService, User } from './login.service';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  username: string;
+  password: string;
 
-    username: string;
-    password: string;
+  constructor(private router: Router, private login$: LoginService) {}
 
-    constructor(private router: Router, private http: HttpClient) {}
+  ngOnInit() {}
 
-    ngOnInit() { }
-
-    onLogin() {
-        console.log(`Autenticado com:  btoa(${this.username}:${this.password})`);
-        localStorage.setItem('authentication', btoa(`${this.username}:${this.password}`));
-        localStorage.setItem('authentication_test', `${this.username}:${this.password}`);
-        localStorage.setItem('isLoggedin', 'true');
-        console.log(localStorage.getItem('authentication'));
-        this.router.navigate(['/dashboard']);
-    }
+  onLogin() {
+    this.login$.login(this.username, this.password).subscribe(
+      authenticated => {
+        console.log(authenticated);
+        if (authenticated) {
+          this.router.navigate(['/dashboard']);
+        }
+      },
+      error => {
+        console.log(error);
+        throw new Error('Authentication Unsuccessful');
+      }
+    );
+  }
 }

@@ -4,24 +4,27 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class ApiEndpoint {
+
     constructor() {}
 
-    public BASE = 'http://localhost:8080/';
+    public static BASE = 'http://localhost:8080/';
+    public static LOGIN = `${ApiEndpoint.BASE}user/`;
     // Queries
-    // Dependent on User
-    public QUERIES = `${this.BASE}queries`;
-    // Independednt
-    public ADMIN_QUERIES = `${this.BASE}sqlQueries`;
+    public static QUERIES = `${ApiEndpoint.BASE}queries`;
+    public static ADMIN_QUERIES = `${ApiEndpoint.BASE}sqlQueries`;
 
     // Permission
-    public ADMIN_PERMISSIONS = `${this.BASE}permissionTrees`;
-    public PERMISSIONS = `${this.BASE}permissions`;
+    public static PERMISSIONS = `${ApiEndpoint.BASE}permissions`;
+    public static ADMIN_PERMISSIONS = `${ApiEndpoint.BASE}permissionTrees`;
 
     // Directory
-    public DIRECTORIES = `${this.BASE}directories`;
+    public static DIRECTORIES = `${ApiEndpoint.BASE}directories`;
+
+    // Users
+    public static USERS = `${ApiEndpoint.BASE}yabiUsers`;
 
     // Specific query from Repository
-    public FIND_QUERY = (id: number) => `${this.ADMIN_QUERIES}/${id}`;
-    public RUNQUERY = (id: number) => `${this.BASE}runQuery/${id}`;
+    public static FIND_QUERY = (id: number) => `${ApiEndpoint.ADMIN_QUERIES}/${id}`;
+    public static RUNQUERY = (id: number) => `${ApiEndpoint.BASE}runQuery/${id}`;
 
 }

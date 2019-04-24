@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout.component';
 import { PermissionComponent } from './permission/permission.component';
 import { DirectoryComponent } from './directory/directory.component';
+import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
     {
@@ -53,7 +54,11 @@ const routes: Routes = [
             },
             {
                 path: 'directory',
-                component: DirectoryComponent,
+                component: DirectoryComponent
+            },
+            {
+                path: 'user',
+                component: UserComponent
             }
         ]
     }

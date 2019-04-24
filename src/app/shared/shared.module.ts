@@ -79,4 +79,6 @@ const modules = [
   imports: modules,
   exports: modules
 })
-export class SharedModule { }
+export class SharedModule {
+  public static debounceTime = 300;
+}

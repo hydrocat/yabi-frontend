@@ -6,6 +6,7 @@ export class QueryRepository extends PagingAndSortingRepository<QueryAcessor> {}
 
 export interface QueryAcessor {
   sqlQueries: HateoasQuery[];
+  acessorName: 'sqlQueries';
 }
 
 export class HateoasQuery extends Entity {

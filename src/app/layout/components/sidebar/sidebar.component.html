@@ -9,6 +9,9 @@
         <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/directory']">
             <mat-icon class="sidebar-icon">folder</mat-icon> {{'Directories' | translate }}
         </a>
+        <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/user']">
+            <mat-icon class="sidebar-icon">group</mat-icon> {{'Users' | translate }}
+        </a>
         <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/dashboard']">
             <mat-icon class="sidenav-icon">dashboard</mat-icon> {{ 'Dashboard' | translate }}
         </a>
