@@ -3,10 +3,7 @@ import { HateoasPermission, Permission } from '../permission.model';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup } from '@angular/forms';
 import { genericFormControl } from '../../../shared/modules/genericFormControl/genericFormControl';
-import { DirectoryService } from '../../directory/directory.service';
-import { HateoasDirectory } from '../../directory/directory.model';
 import { PermissionService } from '../permission.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-form',
