@@ -61,9 +61,7 @@ export class QueryFormComponent implements OnInit, OnDestroy {
     this.form.value.permission = 'asd';
     this.directory$.index().subscribe( dirs => {
       this.directories = dirs;
-      console.log(this.form.value);
       this.form.value['directory'] = this.directories.find( d => d.id === this.query.id);
-      console.log(this.form.value);
     });
     this.permission$.index().subscribe(values => {
       this.permissions.push(...values);
@@ -85,8 +83,6 @@ export class QueryFormComponent implements OnInit, OnDestroy {
     if (this.isEdit) {
       throw new Error('Edit not implemented yet');
     } else {
-      console.log('Query save');
-      console.log(this.form.value);
       this.query$
         .create(this.form.value)
         .pipe(takeUntil(this._unsubscribe))
