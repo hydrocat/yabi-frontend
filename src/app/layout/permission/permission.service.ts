@@ -19,9 +19,13 @@ export class PermissionService extends PagingAndSortingRepositoryService<
   PermissionAcessor,
   PermissionRepository
 > {
-
   constructor(private http$: HttpClient) {
-    super(() => new HateoasPermission(), new PermissionAcessor(), http$, ApiEndpoint.ADMIN_PERMISSIONS);
+    super(
+      () => new HateoasPermission(),
+      new PermissionAcessor(),
+      http$,
+      ApiEndpoint.ADMIN_PERMISSIONS
+    );
   }
 
   userIndex(): Observable<Permission[]> {
@@ -34,10 +38,20 @@ export class PermissionService extends PagingAndSortingRepositoryService<
     );
   }
 
-  create(permission: Permission): Observable<HateoasPermission> {
-    return this.http$.post<HateoasPermission>(
-      ApiEndpoint.ADMIN_PERMISSIONS,
-      permission
-    );
+
+  /**
+   * The DELETE method for Permission is a special api call that cascades all
+   * child permissions.
+   *
+   * The return value is an array of all deleted permissions
+   */
+  delete(permission: HateoasPermission): Observable<number[]> {
+    return this.http$
+      .delete(`${ApiEndpoint.DELETE_PERMISSION}/${permission.id}`)
+      .pipe(
+        map((response: Object) => {
+          return response as number[];
+        })
+      );
   }
 }

@@ -28,7 +28,7 @@ export class PermissionFormNewComponent implements OnInit {
     this.form = genericFormControl(this.permission, ['id']);
   }
 
-  onSubmit()  {
+  onSubmit() {
     Object.assign(this.permission, this.form.value);
     this.permission.parent = this.parent.uri;
     this.permission.nodePath =

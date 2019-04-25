@@ -47,7 +47,6 @@ export class PermissionComponent implements OnInit, AfterViewInit, OnDestroy {
         .userIndex()
         .pipe(takeUntil(this._unsubscribe))
         .subscribe((p: Permission[]) => {
-
           this.dataSource = new MatTableDataSource(p.map(x => x.toHateoas()));
         });
     }
@@ -85,6 +84,18 @@ export class PermissionComponent implements OnInit, AfterViewInit, OnDestroy {
       minHeight: '50%',
       data: permission
     });
+  }
+
+  public onPermissionDelete(permission: HateoasPermission) {
+    this.ps
+      .delete(permission)
+      .subscribe(
+        ( deletedPermissions: number[]) =>
+          this.dataSource = new MatTableDataSource(
+            // the new dataSource values must not be inside deletedPermissions
+            this.dataSource.data.filter(p => !deletedPermissions.includes(p.id))
+          )
+      );
   }
 
   ngOnDestroy() {

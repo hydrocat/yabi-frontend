@@ -15,6 +15,7 @@ export class ApiEndpoint {
 
     // Permission
     public static PERMISSIONS = `${ApiEndpoint.BASE}permissions`;
+    public static DELETE_PERMISSION = `${ApiEndpoint.BASE}permission`;
     public static ADMIN_PERMISSIONS = `${ApiEndpoint.BASE}permissionTrees`;
 
     // Directory

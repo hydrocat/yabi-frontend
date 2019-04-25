@@ -27,6 +27,19 @@ export class PagingAndSortingRepositoryService<
       })
     );
   }
-}
 
-export function teste() {}
+  create(entity: any): Observable<E> {
+    return this.http.post<E>(
+      this.api,
+      entity
+    ).pipe(
+      map( (responseEntity: E) => {
+        return Object.assign( this.entityConstructor(), responseEntity);
+      })
+    );
+  }
+
+  delete(entity: E): Observable<Object> {
+    return this.http.delete(entity.uri);
+  }
+}
