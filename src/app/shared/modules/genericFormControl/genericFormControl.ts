@@ -2,7 +2,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 
 export function genericFormControl(
   instance: any,
-  blockedAttributes?: string[],
+  blockedAttributes: string[] = [],
   initialValue?: {},
   extraKeyPair?: {}
 ): FormGroup {
@@ -15,7 +15,6 @@ export function genericFormControl(
       (extraKeyPair && extraKeyPair[attribute]) ||
       (initialValue && initialValue[attribute]) ||
       instance[attribute];
-    console.log(value);
     controls[attribute] = new FormControl(value);
   });
 
