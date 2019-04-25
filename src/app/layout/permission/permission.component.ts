@@ -87,15 +87,13 @@ export class PermissionComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public onPermissionDelete(permission: HateoasPermission) {
-    this.ps
-      .delete(permission)
-      .subscribe(
-        ( deletedPermissions: number[]) =>
-          this.dataSource = new MatTableDataSource(
-            // the new dataSource values must not be inside deletedPermissions
-            this.dataSource.data.filter(p => !deletedPermissions.includes(p.id))
-          )
-      );
+    this.ps.delete(permission).subscribe(
+      (deletedPermissions: number[]) =>
+        (this.dataSource = new MatTableDataSource(
+          // the new dataSource values must not be inside deletedPermissions
+          this.dataSource.data.filter(p => !deletedPermissions.includes(p.id))
+        ))
+    );
   }
 
   ngOnDestroy() {
