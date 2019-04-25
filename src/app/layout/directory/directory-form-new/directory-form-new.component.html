@@ -1,0 +1,25 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-dialog-content class="form">
+    <h2>New Directory</h2>
+
+    <mat-form-field>
+      <input matInput placeholder="Name" formControlName="name" />
+    </mat-form-field>
+  
+    <mat-form-field>
+      <input matInput placeholder="Connection String" formControlName="connectionString"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Username" formControlName="username"/>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="Password" formControlName="password"/>
+      </mat-form-field> 
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button color="primary">Save</button>
+  </mat-dialog-actions>
+</form>

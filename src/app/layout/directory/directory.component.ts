@@ -4,8 +4,13 @@ import { MatDialog, MatTableDataSource } from '@angular/material';
 import { HateoasDirectory } from './directory.model';
 import { Subject } from 'rxjs';
 import { FormControl } from '@angular/forms';
-import { takeUntil, debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-
+import {
+  takeUntil,
+  debounceTime,
+  distinctUntilChanged,
+  tap
+} from 'rxjs/operators';
+import { DirectoryFormNewComponent } from './directory-form-new/directory-form-new.component';
 
 @Component({
   selector: 'app-directory',
@@ -13,8 +18,10 @@ import { takeUntil, debounceTime, distinctUntilChanged, tap } from 'rxjs/operato
   styleUrls: ['./directory.component.scss']
 })
 export class DirectoryComponent implements OnInit, AfterViewInit, OnDestroy {
-
-  constructor(private ds: DirectoryService, private _matDialog: MatDialog) {}
+  constructor(
+    private directory$: DirectoryService,
+    private _matDialog: MatDialog
+  ) {}
 
   public dataSource: MatTableDataSource<HateoasDirectory>;
   public diplayedColumns = ['name', 'connectionString', 'username', 'password'];
@@ -22,25 +29,41 @@ export class DirectoryComponent implements OnInit, AfterViewInit, OnDestroy {
   public search = new FormControl('');
 
   ngOnInit() {
-    this.ds.index()
-    .pipe( takeUntil(this._unsubscribe))
-    .subscribe((p: HateoasDirectory[]) => {
-      this.dataSource = new MatTableDataSource(p);
-    });
+    this.directory$
+      .index()
+      .pipe(takeUntil(this._unsubscribe))
+      .subscribe((p: HateoasDirectory[]) => {
+        this.dataSource = new MatTableDataSource(p);
+      });
   }
 
   ngAfterViewInit() {
     this.search.valueChanges
-    .pipe(
-      takeUntil(this._unsubscribe),
-      debounceTime(300),
-      distinctUntilChanged(),
-      tap( (text: string) => this.dataSource.filter = text )
-    )
-    .subscribe();
+      .pipe(
+        takeUntil(this._unsubscribe),
+        debounceTime(300),
+        distinctUntilChanged(),
+        tap((text: string) => (this.dataSource.filter = text))
+      )
+      .subscribe();
   }
 
-  public onDirectoryNew() {}
+  public onDirectoryNew() {
+    const dialog = this._matDialog.open(DirectoryFormNewComponent, {
+      minWidth: '60%',
+      minHeight: '50%'
+    });
+
+    dialog.componentInstance.submission.subscribe(
+      (directory: HateoasDirectory) => {
+        this.dataSource = new MatTableDataSource([
+          ...this.dataSource.data,
+          directory
+        ]);
+        dialog.close();
+      }
+    );
+  }
 
   public onDirectoryShow() {}
 
@@ -48,5 +71,4 @@ export class DirectoryComponent implements OnInit, AfterViewInit, OnDestroy {
     this._unsubscribe.next();
     this._unsubscribe.complete();
   }
-
 }
