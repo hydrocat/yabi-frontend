@@ -26,27 +26,13 @@
       ></textarea>
     </mat-form-field>
 
-    <!-- <mat-form-field>
-      <mat-select placeholder="Database" formControlName="directory">
-        <mat-option value="option">Option</mat-option>
-      </mat-select>
-    </mat-form-field> -->
-
     <mat-form-field>
-      <!-- <input
-        type="text"
-        matInput
-        placeholder="Directory"
-        formControlName="directory"
-        [matAutocomplete]="directory"
-      /> -->
       <mat-select placeholder='Directory' formControlName='directory'>
       <!-- <mat-autocomplete #directory="matAutocomplete"> -->
         <mat-option *ngFor="let directory of directories" [value]="directory.uri">
           {{ directory.name }}
         </mat-option>
       </mat-select>
-      <!-- </mat-autocomplete> -->
     </mat-form-field>    
 
     <mat-form-field>

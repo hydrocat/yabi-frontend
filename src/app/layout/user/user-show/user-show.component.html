@@ -1,0 +1,64 @@
+<h2>Permissions of User: {{ user.name }}</h2>
+
+<div class="mat-elevation-z8">
+  <mat-table [dataSource]="dataSource">
+    <ng-container cdkColumnDef="nodePath">
+      <mat-header-cell *cdkHeaderCellDef>
+        Path
+      </mat-header-cell>
+
+      <mat-cell *cdkCellDef="let permission">
+        {{ permission.nodePath }}
+      </mat-cell>
+
+      <mat-footer-cell *matFooterCellDef>
+        <mat-form-field>
+          <mat-select
+            placeholder="Assign new Permission"
+            [formControl]="permissionFormControl"
+          >
+            <mat-option
+              *ngFor="let permission of allPermissions"
+              [value]="permission"
+            >
+              {{ permission.nodePath }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-footer-cell>
+
+    </ng-container>
+
+    <ng-container cdkColumnDef="action">
+      <mat-header-cell *cdkHeaderCellDef>
+        Actions
+      </mat-header-cell>
+
+      <mat-cell *cdkCellDef="let permission">
+          <mat-icon (click)="onUnassignPermission(permission)">delete</mat-icon>
+      </mat-cell>
+
+      <mat-footer-cell *cdkFooterCellDef>
+        <mat-icon
+          (click)="onAssignPermission()"
+          style="cursor: pointer"
+          >add</mat-icon
+        >
+      </mat-footer-cell>
+    </ng-container>
+
+
+    <mat-header-row *cdkHeaderRowDef="diplayedColumns"></mat-header-row>
+    <mat-row
+      *cdkRowDef="let permission; columns: diplayedColumns"
+      matRipple
+      style="cursor: pointer"
+    ></mat-row>
+
+    <mat-footer-row
+      *cdkFooterRowDef="diplayedColumns; sticky: true"
+      matRipple
+    ></mat-footer-row>
+
+  </mat-table>
+</div>

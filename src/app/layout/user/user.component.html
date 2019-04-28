@@ -1,4 +1,39 @@
-<ul>
-  <li>teste</li>
-  <li>{{users}}</li>
-</ul>
+<h2>Users</h2>
+
+<div>
+  <mat-form-field>
+    <input matInput [formControl]="search" placeholder="Pesquisar" />
+  </mat-form-field>
+</div>
+
+<div class="mat-elevation-z8">
+    <mat-table [dataSource]="dataSource">
+      <ng-container cdkColumnDef="name">
+        <mat-header-cell *cdkHeaderCellDef>
+          Name
+        </mat-header-cell>
+  
+        <mat-cell *cdkCellDef="let user">
+          {{ user.name }}
+        </mat-cell>
+      </ng-container>
+  
+      <ng-container cdkColumnDef="role">
+        <mat-header-cell *cdkHeaderCellDef>
+          Role
+        </mat-header-cell>
+  
+        <mat-cell *cdkCellDef="let user">
+          {{ user.role }}
+        </mat-cell>
+      </ng-container>
+    
+      <mat-header-row *cdkHeaderRowDef="diplayedColumns"></mat-header-row>
+      <mat-row
+        *cdkRowDef="let user; columns: diplayedColumns"
+        (click)="onUserShow(user)"
+        matRipple
+        style="cursor: pointer"
+      ></mat-row>
+    </mat-table>
+  </div>

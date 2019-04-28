@@ -17,8 +17,8 @@ import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import { NavComponent } from './nav/nav.component';
 import { PermissionModule } from './permission/permission.module';
-import { DirectoryComponent } from './directory/directory.component';
-import { UserComponent } from './user/user.component';
+import { UserModule } from './user/user.module';
+import { DirectoryModule } from './directory/directory.module';
 
 @NgModule({
     imports: [
@@ -33,8 +33,10 @@ import { UserComponent } from './user/user.component';
         MatListModule,
         TranslateModule,
         MatCardModule,
-        PermissionModule
+        UserModule,
+        PermissionModule,
+        DirectoryModule
     ],
-    declarations: [LayoutComponent, NavComponent, TopnavComponent, SidebarComponent, DirectoryComponent, UserComponent ]
+    declarations: [LayoutComponent, NavComponent, TopnavComponent, SidebarComponent ]
 })
 export class LayoutModule {}

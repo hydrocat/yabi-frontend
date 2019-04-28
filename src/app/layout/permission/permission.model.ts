@@ -51,9 +51,11 @@ export class Permission {
   }
 
   toHateoas(): HateoasPermission {
-    const p = new HateoasPermission(this.nodePath, this.description);
+    const p = new HateoasPermission();
+    p.nodePath = this.nodePath;
+    p.description = this.description;
     p.id = this.id;
-    p._links.parent.href = this.parent;
+/*     p._links.parent.href = this.parent; */
     return p;
   }
 }
