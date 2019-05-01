@@ -1,15 +1,10 @@
-<h2 mat-dialog-title>
-  Consulta: {{ query.name }}
-  <button mat-button (click)="onQueryEdit()">
-    <mat-icon>edit</mat-icon>
-  </button>
-  <button mat-button (click)="onQueryDelete()">
-    <mat-icon>delete</mat-icon>
-  </button>
-</h2>
+<h2 mat-dialog-title>Query: {{ query.name }}</h2>
 
 <mat-dialog-content *ngIf="!queryRan">
-  {{ query.description }}
+  Description: {{ query.description }}
+  <mat-divider></mat-divider>
+  Permission: {{ query.permission }}
+  <mat-divider></mat-divider>
 </mat-dialog-content>
 
 <mat-dialog-content *ngIf="queryRan">

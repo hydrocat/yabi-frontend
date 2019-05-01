@@ -9,7 +9,22 @@
 .nav-brand {
     width: 215px;
     text-align: center;
+    font-family: monospace;
+    font-stretch: condensed;
+    font-weight: bold;
 }
+
+.brand-name {
+    margin-top: 0.5em;
+    font-size: 1.5em;
+}
+
+.brand-meaning {
+    font-size: 0.5em;
+    position: relative;
+    top: -1em;
+}
+
 .topnav-icon {
     text-decoration: none;
     display: flex;

@@ -12,14 +12,23 @@ import { tap } from 'rxjs/operators';
 export class LoginService {
   constructor(private http$: HttpClient, private api: ApiEndpoint) {}
 
-  private _user: User = null;
+  private _user: User;
 
   public isAuthenticated() {
     return this._user !== null;
   }
 
-  public get user() {
-    return this._user;
+  public get user(): User {
+    if (this._user) {
+      return this._user;
+    } else {
+      this.http$.get<User>(ApiEndpoint.LOGIN)
+      .pipe(
+          tap((user: User) => {
+            this._user = user;
+          })
+      ).subscribe( () => this._user );
+    }
   }
 
   public isAdmin() {

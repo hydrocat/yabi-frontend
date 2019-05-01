@@ -12,6 +12,7 @@ import { Query, HateoasQuery } from '../query.model';
 import { QueryShowComponent } from './query-show/query-show.component';
 import { QueryFormComponent } from './query-form/query-form.component';
 import { FormControl } from '@angular/forms';
+import { LoginService } from '../../../login/login.service';
 
 @Component({
   selector: 'app-query-index',
@@ -19,10 +20,15 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./query-index.component.scss']
 })
 export class QueryIndexComponent implements OnInit, OnDestroy, AfterViewInit {
-  constructor(private query: QueryService, private _matDialog: MatDialog) {}
+  constructor(
+    private query: QueryService,
+    private _matDialog: MatDialog,
+    public login$: LoginService,
+    private query$: QueryService
+  ) {}
 
   public dataSource: MatTableDataSource<Query>;
-  public diplayedColumns = ['name', 'description'];
+  public diplayedColumns = ['name', 'description', 'actions'];
   private _unsubscribe: Subject<void> = new Subject();
   public querySearch: FormControl;
 
@@ -58,7 +64,9 @@ export class QueryIndexComponent implements OnInit, OnDestroy, AfterViewInit {
     dialog.afterOpened().subscribe(() => {
       dialog.componentInstance.deleted.subscribe(() => {
         dialog.close();
-        this.dataSource.data = this.dataSource.data.filter( (e: Query) => e.id !== query.id);
+        this.dataSource.data = this.dataSource.data.filter(
+          (e: Query) => e.id !== query.id
+        );
       });
     });
   }
@@ -79,6 +87,24 @@ export class QueryIndexComponent implements OnInit, OnDestroy, AfterViewInit {
     dialog.beforeClosed().subscribe(() => {
       dialog.componentInstance.saved.unsubscribe();
     });
+  }
+
+  onQueryEdit(query: Query) {
+    this._matDialog.open(QueryFormComponent, {
+      minWidth: '60%',
+      minHeight: '50%',
+      data: query
+    });
+  }
+
+  onQueryDelete(query: Query) {
+    this.query$
+      .delete(query)
+      .pipe(takeUntil(this._unsubscribe))
+      .subscribe(() => {
+        this.dataSource.data = this.dataSource.data.filter( (q: Query) => q.id !== query.id );
+        this.dataSource._updateChangeSubscription();
+      });
   }
 
   ngOnDestroy() {

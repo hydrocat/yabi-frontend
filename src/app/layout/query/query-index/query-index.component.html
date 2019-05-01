@@ -1,6 +1,11 @@
 <h2>Queries</h2>
 
-<button mat-fab class="fab-mini" (click)="onQueryNew()">
+<button
+  mat-fab
+  class="fab-mini"
+  (click)="onQueryNew()"
+  *ngIf="login$.isAdmin()"
+>
   <i class="material-icons">add</i>
 </button>
 
@@ -33,10 +38,22 @@
       </mat-cell>
     </ng-container>
 
+    <ng-container cdkColumnDef="actions">
+      <mat-header-cell *cdkHeaderCellDef>
+        Actions
+      </mat-header-cell>
+
+      <mat-cell *cdkCellDef="let query">
+        <mat-icon (click)="onQueryEdit(query)" *ngIf="login$.isAdmin()">edit</mat-icon>
+        <mat-icon (click)="onQueryDelete(query)" *ngIf="login$.isAdmin()">delete</mat-icon>
+        <mat-icon (click)="onQueryShow(query)">bar_chart</mat-icon>
+      </mat-cell>
+
+    </ng-container>
+
     <mat-header-row *cdkHeaderRowDef="diplayedColumns"></mat-header-row>
     <mat-row
       *cdkRowDef="let query; columns: diplayedColumns"
-      (click)="onQueryShow(query)"
       matRipple
       style="cursor: pointer"
     ></mat-row>

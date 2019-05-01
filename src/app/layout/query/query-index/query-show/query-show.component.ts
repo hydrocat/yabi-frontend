@@ -10,6 +10,7 @@ import { DataSource } from '@angular/cdk/table';
 import { Subscription, Subject } from 'rxjs';
 import { QueryFormComponent } from '../query-form/query-form.component';
 import { tap, takeUntil } from 'rxjs/operators';
+import { LoginService } from '../../../../login/login.service';
 
 @Component({
   selector: 'app-query-show',
@@ -25,6 +26,7 @@ export class QueryShowComponent implements OnInit, OnDestroy {
   private _unsubscribe = new Subject();
 
   constructor(
+    public login$: LoginService,
     private query$: QueryService,
     @Inject(MAT_DIALOG_DATA) public query: Query,
     private _matDialog: MatDialog

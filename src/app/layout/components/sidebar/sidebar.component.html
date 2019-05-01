@@ -1,18 +1,18 @@
 <div id="sidebar">
     <mat-nav-list>
         <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/query']">
-            <mat-icon class="sidebar-icon">view_list</mat-icon> {{ 'Query' | translate }}
+            <mat-icon class="sidebar-icon">view_list</mat-icon> {{ 'Queries' | translate }}
         </a>
         <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/permission']">
             <mat-icon class="sidebar-icon">folder_shared</mat-icon> {{'Permissions' | translate }}
         </a>
-        <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/directory']">
+        <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/directory']" *ngIf="login$.isAdmin()">
             <mat-icon class="sidebar-icon">folder</mat-icon> {{'Directories' | translate }}
         </a>
-        <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/user']">
+        <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/user']" *ngIf="login$.isAdmin()">
             <mat-icon class="sidebar-icon">group</mat-icon> {{'Users' | translate }}
         </a>
-        <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/dashboard']">
+<!--         <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/dashboard']">
             <mat-icon class="sidenav-icon">dashboard</mat-icon> {{ 'Dashboard' | translate }}
         </a>
         <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/charts']">
@@ -26,28 +26,9 @@
         </a>
         <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/grid']">
             <mat-icon class="sidenav-icon">grid_on</mat-icon> {{ 'Material Grid' | translate }}
-        </a>
+        </a> -->
         <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/components']">
             <mat-icon class="sidenav-icon">code</mat-icon> {{ 'Material Component' | translate }}
         </a>
-        <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/blank-page']">
-            <mat-icon class="sidenav-icon">insert_drive_file</mat-icon> {{ 'Blank Page' | translate }}
-        </a>
-        <div class="nested-menu">
-            <a mat-list-item (click)="addExpandClass('pages')">
-                <mat-icon class="sidenav-icon">add</mat-icon> {{ 'Menu' | translate }}
-            </a>
-            <ul class="nested submenu" [class.expand]="showMenu === 'pages'">
-                <li>
-                    <a href="javascript:void(0)"><span>{{ 'Submenu' | translate }}</span></a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)"><span>{{ 'Submenu' | translate }}</span></a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)"><span>{{ 'Submenu' | translate }}</span></a>
-                </li>
-            </ul>
-        </div>
     </mat-nav-list>
 </div>
