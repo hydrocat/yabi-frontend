@@ -7,10 +7,7 @@ import { PermissionFormNewComponent } from './permission-form-new/permission-for
 
 @NgModule({
   declarations: [PermissionComponent, PermissionFormEditComponent, PermissionFormNewComponent],
-  imports: [
-    CommonModule,
-    SharedModule
-  ],
+  imports: [CommonModule, SharedModule],
   entryComponents: [PermissionFormEditComponent, PermissionFormNewComponent]
 })
-export class PermissionModule { }
+export class PermissionModule {}

@@ -1,0 +1,52 @@
+<p matDialogTitle>{{ title }}</p>
+
+<mat-dialog-content class="form">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <input matInput placeholder="Query Name" formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea
+        matInput
+        placeholder="Description"
+        formControlName="description"
+        cdkTextareaAutosize
+      ></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea
+        matInput
+        placeholder="SQL Command"
+        formControlName="command"
+        cdkTextareaAutosize
+        formControlName="command"
+      ></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Directory" [compareWith]='compareDirectory' formControlName='directory'>
+        <mat-option
+          *ngFor="let directory of (directories | async)"
+          [value]="directory.uri"
+        >
+          {{ directory.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input placeholder="Permission" type='text' matInput formControlName='permission' [matAutocomplete]='permissionAutoComplete'>
+    </mat-form-field>
+
+    <mat-autocomplete #permissionAutoComplete='matAutocomplete' [displayWith]='displayPermission'>
+      <mat-option *ngFor='let permission of (filteredPermissisons | async)' [value]='permission.uri'>{{permission.nodePath}}</mat-option>
+    </mat-autocomplete>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button>Try</button>
+  <button mat-button color="primary" (click)='onSubmit()'>Save</button>
+</mat-dialog-actions>

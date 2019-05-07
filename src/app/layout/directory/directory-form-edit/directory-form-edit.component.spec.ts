@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { QueryIndexComponent } from './query-index.component';
+import { DirectoryFormEditComponent } from './directory-form-edit.component';
 
-describe('QueryIndexComponent', () => {
-  let component: QueryIndexComponent;
-  let fixture: ComponentFixture<QueryIndexComponent>;
+describe('DirectoryFormEditComponent', () => {
+  let component: DirectoryFormEditComponent;
+  let fixture: ComponentFixture<DirectoryFormEditComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QueryIndexComponent ]
+      declarations: [ DirectoryFormEditComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(QueryIndexComponent);
+    fixture = TestBed.createComponent(DirectoryFormEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

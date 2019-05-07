@@ -17,8 +17,8 @@
         Name
       </mat-header-cell>
 
-      <mat-cell *cdkCellDef="let Directory">
-        {{ Directory.name }}
+      <mat-cell *cdkCellDef="let directory">
+        {{ directory.name }}
       </mat-cell>
     </ng-container>
 
@@ -27,8 +27,8 @@
         Connection String
       </mat-header-cell>
 
-      <mat-cell *cdkCellDef="let Directory">
-        {{ Directory.connectionString }}
+      <mat-cell *cdkCellDef="let directory">
+        {{ directory.connectionString }}
       </mat-cell>
     </ng-container>
 
@@ -37,8 +37,8 @@
         Username
       </mat-header-cell>
 
-      <mat-cell *cdkCellDef="let Directory">
-        {{ Directory.username }}
+      <mat-cell *cdkCellDef="let directory">
+        {{ directory.username }}
       </mat-cell>
     </ng-container>
 
@@ -47,15 +47,25 @@
         Password
       </mat-header-cell>
 
-      <mat-cell *cdkCellDef="let Directory">
-        {{ Directory.password }}
+      <mat-cell *cdkCellDef="let directory">
+        {{ directory.password }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef='actions'>
+      <mat-header-cell *cdkHeaderCellDef>
+        Actions
+      </mat-header-cell>
+
+      <mat-cell *cdkCellDef='let directory'>
+        <mat-icon (click)="$event.stopPropagation(); onDirectoryDelete(directory)">delete</mat-icon>
       </mat-cell>
     </ng-container>
 
     <mat-header-row *cdkHeaderRowDef="diplayedColumns"></mat-header-row>
     <mat-row
-      *cdkRowDef="let Directory; columns: diplayedColumns"
-      (click)="onDirectoryShow(Directory)"
+      *cdkRowDef="let directory; columns: diplayedColumns"
+      (click)="onDirectoryShow(directory)"
       matRipple
       style="cursor: pointer"
     ></mat-row>

@@ -1,22 +1,31 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap, pluck, map, expand } from 'rxjs/operators';
-import { Query, HateoasQuery, QueryRepository } from './query.model';
+import {
+  Query,
+  HateoasQuery,
+  QueryRepository,
+  QueryAcessor
+} from './query.model';
 import { of, Observable } from 'rxjs';
 import { ApiEndpoint } from '../../shared/services/apiEndpoint';
+import { PagingAndSortingRepositoryService } from '../../shared/modules/hateoas/pagingAndSortingRepositoryService';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QueryService {
   constructor(private http$: HttpClient, private api: ApiEndpoint) {}
+  private hateoasService = new HateoasQueryService(this.http$);
 
   public index(): Observable<Query[]> {
     return this.http$.get<Query[]>(ApiEndpoint.QUERIES);
   }
 
   public find(id: number): Observable<HateoasQuery> {
-    return this.http$.get<HateoasQuery>(ApiEndpoint.FIND_QUERY(id));
+    return this.http$.get<HateoasQuery>(ApiEndpoint.FIND_QUERY(id)).pipe(
+      map(q => Object.assign(new HateoasQuery(), q))
+    );
   }
 
   public run(query: Query): Observable<any> {
@@ -41,15 +50,22 @@ export class QueryService {
     return this.http$.delete(deleteUrl);
   }
 
-  public patch(query: Query | HateoasQuery) { }
+  public patch(query: HateoasQuery): Observable<HateoasQuery> {
+    return this.hateoasService.patch(query);
+  }
 }
 
-// src/app/app.module.ts                       |  8 +--
-// .../query-index/query-index.component.html  |  8 +--
-// .../query-index/query-index.component.scss  |  5 ++
-// .../query-index/query-index.component.ts    |  8 +++
-// .../query/query-index/query-index.module.ts | 10 ++--
-// .../query-show/query-show.component.html    | 11 ++--
-// .../query-show/query-show.component.ts      | 49 ++++++++++-------
-// src/app/layout/query/query.model.ts         | 19 +++++--
-// src/app/layout/query/query.service.ts       |  8 ++-
+class HateoasQueryService extends PagingAndSortingRepositoryService<
+  HateoasQuery,
+  QueryAcessor,
+  QueryRepository
+> {
+  constructor(private http$: HttpClient) {
+    super(
+      () => new HateoasQuery(),
+      new QueryAcessor(),
+      http$,
+      ApiEndpoint.ADMIN_QUERIES
+    );
+  }
+}

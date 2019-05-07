@@ -34,17 +34,17 @@
       </mat-header-cell>
 
       <mat-cell *cdkCellDef="let Permission">
-        <mat-icon (click)="onPermissionNew(Permission)">add</mat-icon>
-        <mat-icon (click)="onPermissionEdit(Permission)">edit</mat-icon>
-        <mat-icon (click)="onPermissionDelete(Permission)">delete</mat-icon>
+        <mat-icon (click)="$event.stopPropagation(); onPermissionNew(Permission)">add</mat-icon>
+        <mat-icon (click)="$event.stopPropagation(); onPermissionDelete(Permission)">delete</mat-icon>
       </mat-cell>
     </ng-container>
 
     <mat-header-row *cdkHeaderRowDef="diplayedColumns"></mat-header-row>
     <mat-row
-      *cdkRowDef="let Permission; columns: diplayedColumns"
+      *cdkRowDef="let permission; columns: diplayedColumns"
       matRipple
       style="cursor: pointer"
+      (click)='onPermissionEdit(permission)'
     ></mat-row>
   </mat-table>
 </div>

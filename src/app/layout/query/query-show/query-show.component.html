@@ -1,13 +1,16 @@
 <h2 mat-dialog-title>Query: {{ query.name }}</h2>
 
-<mat-dialog-content *ngIf="!queryRan">
+<mat-dialog-content>
   Description: {{ query.description }}
   <mat-divider></mat-divider>
+  <br>
   Permission: {{ query.permission }}
   <mat-divider></mat-divider>
+  <br>
 </mat-dialog-content>
 
 <mat-dialog-content *ngIf="queryRan">
+  Results:
   <div class="mat-elevation-z8">
     <mat-table [dataSource]="dataSource">
       <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns">

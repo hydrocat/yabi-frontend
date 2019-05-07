@@ -11,6 +11,7 @@ import {
   tap
 } from 'rxjs/operators';
 import { DirectoryFormNewComponent } from './directory-form-new/directory-form-new.component';
+import { DirectoryFormEditComponent } from './directory-form-edit/directory-form-edit.component';
 
 @Component({
   selector: 'app-directory',
@@ -24,7 +25,7 @@ export class DirectoryComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   public dataSource: MatTableDataSource<HateoasDirectory>;
-  public diplayedColumns = ['name', 'connectionString', 'username', 'password'];
+  public diplayedColumns = ['name', 'connectionString', 'username', 'password', 'actions'];
   private _unsubscribe: Subject<void> = new Subject();
   public search = new FormControl('');
 
@@ -56,16 +57,35 @@ export class DirectoryComponent implements OnInit, AfterViewInit, OnDestroy {
 
     dialog.componentInstance.submission.subscribe(
       (directory: HateoasDirectory) => {
-        this.dataSource = new MatTableDataSource([
-          ...this.dataSource.data,
-          directory
-        ]);
+        this.dataSource.data.push(directory);
+        this.dataSource._updateChangeSubscription();
         dialog.close();
       }
     );
   }
 
-  public onDirectoryShow() {}
+  onDirectoryDelete(directory: HateoasDirectory) {
+    this.directory$.delete(directory).subscribe(() => {
+      this.dataSource.data = this.dataSource.data.filter( d => d.uri !== directory.uri);
+      this.dataSource._updateChangeSubscription();
+    });
+  }
+
+  public onDirectoryShow(directory: HateoasDirectory) {
+    const dialog = this._matDialog.open(DirectoryFormEditComponent, {
+      minWidth: '60%',
+      minHeight: '50%',
+      data: directory
+    });
+
+    dialog.componentInstance.submission.subscribe(
+      (d: HateoasDirectory) => {
+        this.dataSource.data = this.dataSource.data.filter( x => x.uri !== d.uri).concat([d]);
+        this.dataSource._updateChangeSubscription();
+        dialog.close();
+      }
+    );
+  }
 
   ngOnDestroy() {
     this._unsubscribe.next();

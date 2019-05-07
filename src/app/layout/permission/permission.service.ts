@@ -10,11 +10,12 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PagingAndSortingRepositoryService } from '../../shared/modules/hateoas/pagingAndSortingRepositoryService';
+import { CachedPagingAndSortingRepositoryService } from '../../shared/modules/hateoas/cachedPagingAndSortingRepositoryService';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PermissionService extends PagingAndSortingRepositoryService<
+export class PermissionService extends CachedPagingAndSortingRepositoryService<
   HateoasPermission,
   PermissionAcessor,
   PermissionRepository

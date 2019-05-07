@@ -7,23 +7,23 @@ import {
   OnDestroy
 } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
-import { QueryService } from '../../query.service';
+import { QueryService } from '../query.service';
 import { FormGroup } from '@angular/forms';
-import { Query, HateoasQuery } from '../../query.model';
-import { genericFormControl } from '../../../../shared/modules/genericFormControl/genericFormControl';
+import { Query, HateoasQuery } from '../query.model';
+import { genericFormControl } from '../../../shared/modules/genericFormControl/genericFormControl';
 import { Subject, Observable, of } from 'rxjs';
-import { PermissionService } from '../../../permission/permission.service';
-import { HateoasPermission } from '../../../permission/permission.model';
-import { HateoasDirectory } from '../../../directory/directory.model';
-import { DirectoryService } from '../../../directory/directory.service';
+import { PermissionService } from '../../permission/permission.service';
+import { HateoasPermission } from '../../permission/permission.model';
+import { HateoasDirectory } from '../../directory/directory.model';
+import { DirectoryService } from '../../directory/directory.service';
 import { takeUntil, startWith, map, tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-query-form',
-  templateUrl: './query-form.component.html',
-  styleUrls: ['./query-form.component.scss']
+  selector: 'app-query-new',
+  templateUrl: './query-new.component.html',
+  styleUrls: ['./query-new.component.scss']
 })
-export class QueryFormComponent implements OnInit, OnDestroy {
+export class QueryNewComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public title: 'New Query' | 'Edit Query';
   public isEdit: boolean;

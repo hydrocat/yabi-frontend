@@ -79,11 +79,21 @@ export class PermissionComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public onPermissionEdit(permission: HateoasPermission) {
-    this._matDialog.open(PermissionFormEditComponent, {
+    const dialog = this._matDialog.open(PermissionFormEditComponent, {
       minWidth: '60%',
       minHeight: '50%',
       data: permission
     });
+
+    dialog.afterOpened().subscribe(() => {
+      dialog.componentInstance.saved.subscribe( (newPermission: HateoasPermission) => {
+        this.dataSource.data = this.dataSource.data.filter( p => p.uri !== newPermission.uri).concat([newPermission]);
+        this.dataSource._updateChangeSubscription();
+        dialog.close();
+      });
+    });
+
+    dialog.beforeClosed().subscribe( () => dialog.componentInstance.saved.unsubscribe() );
   }
 
   public onPermissionDelete(permission: HateoasPermission) {

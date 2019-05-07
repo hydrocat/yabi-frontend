@@ -19,6 +19,7 @@ import { NavComponent } from './nav/nav.component';
 import { PermissionModule } from './permission/permission.module';
 import { UserModule } from './user/user.module';
 import { DirectoryModule } from './directory/directory.module';
+import { QueryModule } from './query/query.module';
 
 @NgModule({
     imports: [
@@ -35,7 +36,8 @@ import { DirectoryModule } from './directory/directory.module';
         MatCardModule,
         UserModule,
         PermissionModule,
-        DirectoryModule
+        DirectoryModule,
+        QueryModule
     ],
     declarations: [LayoutComponent, NavComponent, TopnavComponent, SidebarComponent ]
 })

@@ -1,12 +1,14 @@
 import { PagingAndSortingRepository } from '../../shared/modules/hateoas/pagingAndSortingRepository.model';
-import { Href } from '../../shared/modules/hateoas/repository.model';
+import { Href, Acessor } from '../../shared/modules/hateoas/repository.model';
 import { Entity } from '../../shared/modules/hateoas/entity.model';
 
 export class QueryRepository extends PagingAndSortingRepository<QueryAcessor> {}
 
-export interface QueryAcessor {
-  sqlQueries: HateoasQuery[];
-  acessorName: 'sqlQueries';
+export class QueryAcessor implements Acessor {
+  constructor(
+    public acessorName = 'sqlQueries',
+    public permissionTrees?: HateoasQuery[]
+  ) {}
 }
 
 export class HateoasQuery extends Entity {
@@ -16,9 +18,9 @@ export class HateoasQuery extends Entity {
     public description?: string,
     public _links?: {
       self: Href;
-      sqlQuery: Href,
-      permission: Href,
-      directory: Href,
+      sqlQuery: Href;
+      permission: Href;
+      directory: Href;
     }
   ) {
     super(_links);
@@ -33,6 +35,11 @@ export class HateoasQuery extends Entity {
   }
 }
 
+/*
+ * @export
+ * @class Query
+ * @property directory: Resource location that represents a directory
+ */
 export class Query {
   constructor(
     public name?: string,
@@ -40,6 +47,6 @@ export class Query {
     public id?: number,
     public command?: string,
     public permission?,
-    public directory?
+    public directory?: string
   ) {}
 }

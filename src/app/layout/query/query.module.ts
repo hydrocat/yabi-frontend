@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { QueryRoutingModule } from './query-routing.module';
 import { QueryComponent } from './query.component';
-import { QueryService } from './query.service';
-import { QueryIndexModule } from './query-index/query-index.module';
+import { QueryShowComponent } from './query-show/query-show.component';
+import { QueryFormComponent } from './query-form/query-form.component';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
-  imports: [CommonModule, QueryRoutingModule, QueryIndexModule],
-  exports: [],
-  declarations: [QueryComponent],
-  providers: [QueryService]
+  declarations: [QueryComponent, QueryShowComponent, QueryFormComponent],
+  imports: [CommonModule, SharedModule],
+  entryComponents: [QueryShowComponent, QueryFormComponent]
 })
 export class QueryModule {}

@@ -1,16 +1,16 @@
 import { Component, OnInit, Input, Inject, OnDestroy, EventEmitter, Output } from '@angular/core';
-import { QueryService } from '../../query.service';
+import { QueryService } from '../query.service';
 import {
   MAT_DIALOG_DATA,
   MatTableDataSource,
   MatDialog
 } from '@angular/material';
-import { Query, HateoasQuery } from '../../query.model';
+import { Query, HateoasQuery } from '../query.model';
 import { DataSource } from '@angular/cdk/table';
 import { Subscription, Subject } from 'rxjs';
 import { QueryFormComponent } from '../query-form/query-form.component';
 import { tap, takeUntil } from 'rxjs/operators';
-import { LoginService } from '../../../../login/login.service';
+import { LoginService } from '../../../login/login.service';
 
 @Component({
   selector: 'app-query-show',
@@ -63,6 +63,9 @@ export class QueryShowComponent implements OnInit, OnDestroy {
   }
 
   download(): void {
+    if ( !this.queryRan ) {
+      this.runQuery();
+    }
     const str = [this.displayedColumns, ...this.dataSource.data]
       .map((line: Array<string>) => {
         return line.map((value: string) => '\'' + value + '\'').join(',');
