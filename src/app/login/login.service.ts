@@ -5,49 +5,49 @@ import { ApiEndpoint } from '../shared/services/apiEndpoint';
 import { Observable, Subject, Subscriber, of } from 'rxjs';
 import { SubjectSubscriber } from 'rxjs/internal/Subject';
 import { tap } from 'rxjs/operators';
+import { asTextData } from '@angular/core/src/view';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  constructor(private http$: HttpClient, private api: ApiEndpoint) {}
+  constructor(private http$: HttpClient, private api: ApiEndpoint, private router: Router) {}
 
   private _user: User;
 
-  public isAuthenticated() {
-    return this._user !== null;
+  isAuthenticated() {
+    return this._user !== undefined && this._user !== null;
   }
 
-  public get user(): User {
-    if (this._user) {
+  get user(): User {
+    if (this._user !== undefined) {
       return this._user;
     } else {
-      this.http$.get<User>(ApiEndpoint.LOGIN)
-      .pipe(
-          tap((user: User) => {
-            this._user = user;
-          })
-      ).subscribe( () => this._user );
+      this.router.navigate(['/login']);
+    }
+    return this._user;
+  }
+
+  isAdmin() {
+    if ( this.isAuthenticated() && this._user.role === 'ROLE_ADMIN') {
+      return true;
+    } else {
+      return false;
     }
   }
 
-  public isAdmin() {
-    return localStorage.getItem('authentication_test').includes('admin'); // <-- REMOVE THIS! this._user.role === 'ROLE_ADMIN';
+  logout() {
+    this._user = undefined;
+    localStorage.removeItem('authentication');
+    this.router.navigate(['/login']);
   }
 
   login(username: string, password: string) {
-    console.log(`Autenticando com:  btoa(${username}:${password})`);
     localStorage.setItem('authentication', btoa(`${username}:${password}`));
-    localStorage.setItem('authentication_test', `${username}:${password}`);
-    localStorage.setItem('isLoggedin', 'true');
-    console.log(localStorage.getItem('authentication'));
-
     return this.http$.get<User>(ApiEndpoint.LOGIN)
     .pipe(
-        tap((user: User) => {
-          console.log(user);
-          this._user = user;
-        })
+        tap( user => this._user = user )
     );
   }
 }

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { CanActivateChild } from '@angular/router';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/login/login.service';
 
 @Injectable()
 export class AuthGuard implements CanActivateChild {
-    constructor(private router: Router) {}
+    constructor(private router: Router, private login$: LoginService) {}
 
     canActivateChild() {
-        if (localStorage.getItem('isLoggedin') === 'true') {
+        if (this.login$.isAuthenticated() ) {
             return true;
         }
 

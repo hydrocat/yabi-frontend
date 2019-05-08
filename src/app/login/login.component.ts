@@ -18,11 +18,8 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     this.login$.login(this.username, this.password).subscribe(
-      authenticated => {
-        console.log(authenticated);
-        if (authenticated) {
-          this.router.navigate(['/dashboard']);
-        }
+      async () => {
+          await this.router.navigateByUrl('/query');
       },
       error => {
         console.log(error);

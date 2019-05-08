@@ -34,8 +34,7 @@ export class TopnavComponent implements OnInit {
     }
 
     onLoggedout() {
-        localStorage.removeItem('isLoggedin');
-        this.router.navigate(['/login']);
+        this.login$.logout();
     }
 
     changeLang(language: string) {

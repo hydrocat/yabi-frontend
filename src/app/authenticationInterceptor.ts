@@ -31,7 +31,7 @@ export class AuthInterceptor implements HttpInterceptor {
       return next.handle(req);
     }
     //                                                      REMOVE `TRUE` BEFORE PRODUCTION
-    if (this.login$.isAuthenticated() || req.url === ApiEndpoint.LOGIN || true) {
+    if (this.login$.isAuthenticated() || req.url === ApiEndpoint.LOGIN) {
       req = req.clone({
         setHeaders: {
           // Authorization: `Bearer ${localStorage.get('token')}`

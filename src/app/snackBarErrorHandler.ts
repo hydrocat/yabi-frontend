@@ -2,6 +2,7 @@ import { Injectable, ErrorHandler, NgZone, Injector } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
+import { LoginService } from './login/login.service';
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +11,8 @@ export class SnackBarErrorHandler implements ErrorHandler {
     constructor(
                 private zone: NgZone,
                 private bar: MatSnackBar,
-                private injector: Injector
+                private injector: Injector,
+                private login$: LoginService
                 ) {}
 
     handleError(error: any) {
@@ -28,13 +30,9 @@ export class SnackBarErrorHandler implements ErrorHandler {
     httpError(error: HttpErrorResponse) {
         console.log('Erro HTTP');
         if ( error.status === 401) { // 400, unAuthorized
-            delete localStorage['authentication'];
-            delete localStorage['isLoggedin'];
-            console.error('Cleaning authentication');
+            this.login$.logout();
             this.zone.run(() => {
-                if (error.status === 401) {
                     this.injector.get(Router).navigate(['/login']);
-                }
             });
         }
     }

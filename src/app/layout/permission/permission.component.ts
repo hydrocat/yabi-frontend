@@ -79,6 +79,10 @@ export class PermissionComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public onPermissionEdit(permission: HateoasPermission) {
+    if (!this.login$.isAdmin()) {
+      // Gracefully do nothing.
+      return;
+    }
     const dialog = this._matDialog.open(PermissionFormEditComponent, {
       minWidth: '60%',
       minHeight: '50%',
