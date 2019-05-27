@@ -82,4 +82,5 @@ const modules = [
 export class SharedModule {
   public static debounceTime = 300;
   public static serviceCacheExpirationTime = 10_000; // 10s
+  public static apiBase = 'http://localhost:8080/';
 }

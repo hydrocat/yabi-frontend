@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivateChild } from '@angular/router';
 import { Router } from '@angular/router';
-import { LoginService } from 'src/app/login/login.service';
+import { LoginService } from '../../login/login.service';
 
 @Injectable()
 export class AuthGuard implements CanActivateChild {

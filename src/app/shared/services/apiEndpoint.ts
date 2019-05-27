@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { SharedModule } from '../shared.module';
 
 @Injectable({
   providedIn: 'root'
@@ -6,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class ApiEndpoint {
   constructor() {}
 
-  public static BASE = 'http://localhost:8080/';
+  public static BASE = SharedModule.apiBase;
   public static LOGIN = `${ApiEndpoint.BASE}user/`;
   // Queries
   public static QUERIES = `${ApiEndpoint.BASE}queries`;
