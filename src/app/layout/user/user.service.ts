@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiEndpoint } from '../../shared/services/apiEndpoint';
 import { Observable } from 'rxjs';
-import { HateoasUser, UserRepository, UserAcessor } from './user.model';
+import { HateoasUser, UserRepository, UserAccessor } from './user.model';
 import { map } from 'rxjs/operators';
 import { PagingAndSortingRepositoryService } from '../../shared/modules/hateoas/pagingAndSortingRepositoryService';
 import {
@@ -13,11 +13,11 @@ import {
 @Injectable({ providedIn: 'root' })
 export class UserService extends PagingAndSortingRepositoryService<
   HateoasUser,
-  UserAcessor,
+  UserAccessor,
   UserRepository
 > {
   constructor(private http$: HttpClient) {
-    super(() => new HateoasUser(), new UserAcessor(), http$, ApiEndpoint.USERS);
+    super(() => new HateoasUser(), new UserAccessor(), http$, ApiEndpoint.USERS);
   }
 
   permissions(userId: number): Observable<HateoasPermission[]> {

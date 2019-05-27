@@ -5,7 +5,7 @@ import {
   HateoasPermission,
   PermissionRepository,
   Permission,
-  PermissionAcessor
+  PermissionAccessor
 } from './permission.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -17,13 +17,13 @@ import { CachedPagingAndSortingRepositoryService } from '../../shared/modules/ha
 })
 export class PermissionService extends CachedPagingAndSortingRepositoryService<
   HateoasPermission,
-  PermissionAcessor,
+  PermissionAccessor,
   PermissionRepository
 > {
   constructor(private http$: HttpClient) {
     super(
       () => new HateoasPermission(),
-      new PermissionAcessor(),
+      new PermissionAccessor(),
       http$,
       ApiEndpoint.ADMIN_PERMISSIONS
     );

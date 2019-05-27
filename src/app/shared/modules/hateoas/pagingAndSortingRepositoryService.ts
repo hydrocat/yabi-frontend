@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { ApiEndpoint } from '../../services/apiEndpoint';
 import { Entity } from './entity.model';
-import { Repository, Acessor } from './repository.model';
+import { Repository, Accessor } from './repository.model';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { SharedModule } from '../../shared.module';
 
 export class PagingAndSortingRepositoryService<
   E extends Entity,
-  A extends Acessor,
+  A extends Accessor,
   R extends Repository<A>
 > {
   constructor(

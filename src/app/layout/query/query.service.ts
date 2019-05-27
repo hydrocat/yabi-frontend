@@ -5,7 +5,7 @@ import {
   Query,
   HateoasQuery,
   QueryRepository,
-  QueryAcessor
+  QueryAccessor
 } from './query.model';
 import { of, Observable } from 'rxjs';
 import { ApiEndpoint } from '../../shared/services/apiEndpoint';
@@ -57,13 +57,13 @@ export class QueryService {
 
 class HateoasQueryService extends PagingAndSortingRepositoryService<
   HateoasQuery,
-  QueryAcessor,
+  QueryAccessor,
   QueryRepository
 > {
   constructor(private http$: HttpClient) {
     super(
       () => new HateoasQuery(),
-      new QueryAcessor(),
+      new QueryAccessor(),
       http$,
       ApiEndpoint.ADMIN_QUERIES
     );

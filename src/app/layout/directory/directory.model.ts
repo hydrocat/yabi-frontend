@@ -1,12 +1,12 @@
 import { PagingAndSortingRepository } from '../../shared/modules/hateoas/pagingAndSortingRepository.model';
-import { Href, Acessor } from '../../shared/modules/hateoas/repository.model';
+import { Href, Accessor } from '../../shared/modules/hateoas/repository.model';
 import { Entity } from '../../shared/modules/hateoas/entity.model';
 
 export class DirectoryRepository extends PagingAndSortingRepository<
-  DirectoryAcessor
+  DirectoryAccessor
 > {}
 
-export class DirectoryAcessor implements Acessor {
+export class DirectoryAccessor implements Accessor {
   constructor(
     public acessorName = 'directories',
     public directories?: HateoasDirectory[]

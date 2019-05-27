@@ -1,12 +1,12 @@
 import { PagingAndSortingRepository } from '../../shared/modules/hateoas/pagingAndSortingRepository.model';
-import { Href, Acessor } from '../../shared/modules/hateoas/repository.model';
+import { Href, Accessor } from '../../shared/modules/hateoas/repository.model';
 import { Entity } from '../../shared/modules/hateoas/entity.model';
 
 export class PermissionRepository extends PagingAndSortingRepository<
-  PermissionAcessor
+  PermissionAccessor
 > {}
 
-export class PermissionAcessor implements Acessor {
+export class PermissionAccessor implements Accessor {
   constructor(
     public acessorName = 'permissionTrees',
     public permissionTrees?: HateoasPermission[]

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import {
   DirectoryRepository,
   HateoasDirectory,
-  DirectoryAcessor
+  DirectoryAccessor
 } from './directory.model';
 import { ApiEndpoint } from '../../shared/services/apiEndpoint';
 import { map } from 'rxjs/operators';
@@ -15,10 +15,10 @@ import { PagingAndSortingRepositoryService } from '../../shared/modules/hateoas/
 })
 export class DirectoryService extends PagingAndSortingRepositoryService<
   HateoasDirectory,
-  DirectoryAcessor,
+  DirectoryAccessor,
   DirectoryRepository
 > {
   constructor(private _http$: HttpClient) {
-    super(() => new HateoasDirectory(), new DirectoryAcessor(), _http$, ApiEndpoint.DIRECTORIES);
+    super(() => new HateoasDirectory(), new DirectoryAccessor(), _http$, ApiEndpoint.DIRECTORIES);
   }
 }

@@ -7,18 +7,18 @@ export interface Href {
 // specified in acessorName; It's type must be an array of
 // the desired Entities.
 //
-// Example of a person Acessor:
+// Example of a person Accessor:
 //
-// interface PersonAcessor extends Acessor {
+// interface PersonAccessor extends Accessor {
 //  acessorName: 'people';
 //  people: Person[];
 // }
 //
-export interface Acessor {
+export interface Accessor {
   acessorName: string;
 }
 
-export class Repository<A extends Acessor> {
+export class Repository<A extends Accessor> {
   constructor(
     public _embedded: A,
     public _links: {

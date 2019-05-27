@@ -1,10 +1,10 @@
 import { Entity } from '../../shared/modules/hateoas/entity.model';
-import { Href, Acessor } from '../../shared/modules/hateoas/repository.model';
+import { Href, Accessor } from '../../shared/modules/hateoas/repository.model';
 import { PagingAndSortingRepository } from '../../shared/modules/hateoas/pagingAndSortingRepository.model';
 
-export class UserRepository extends PagingAndSortingRepository<UserAcessor> {}
+export class UserRepository extends PagingAndSortingRepository<UserAccessor> {}
 
-export class UserAcessor implements Acessor {
+export class UserAccessor implements Accessor {
     constructor(
         public acessorName = 'yabiUsers',
         public yabiUsers?: Entity[]

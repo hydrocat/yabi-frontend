@@ -1,10 +1,10 @@
 import { PagingAndSortingRepository } from '../../shared/modules/hateoas/pagingAndSortingRepository.model';
-import { Href, Acessor } from '../../shared/modules/hateoas/repository.model';
+import { Href, Accessor } from '../../shared/modules/hateoas/repository.model';
 import { Entity } from '../../shared/modules/hateoas/entity.model';
 
-export class QueryRepository extends PagingAndSortingRepository<QueryAcessor> {}
+export class QueryRepository extends PagingAndSortingRepository<QueryAccessor> {}
 
-export class QueryAcessor implements Acessor {
+export class QueryAccessor implements Accessor {
   constructor(
     public acessorName = 'sqlQueries',
     public permissionTrees?: HateoasQuery[]

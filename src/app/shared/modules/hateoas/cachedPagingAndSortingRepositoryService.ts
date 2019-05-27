@@ -1,6 +1,6 @@
 import { PagingAndSortingRepository } from './pagingAndSortingRepository.model';
 import { Entity } from './entity.model';
-import { Acessor, Repository } from './repository.model';
+import { Accessor, Repository } from './repository.model';
 import { PagingAndSortingRepositoryService } from './pagingAndSortingRepositoryService';
 import { SharedModule } from '../../shared.module';
 import { Observable, of } from 'rxjs';
@@ -8,7 +8,7 @@ import { tap } from 'rxjs/operators';
 
 export class CachedPagingAndSortingRepositoryService<
   E extends Entity,
-  A extends Acessor,
+  A extends Accessor,
   R extends Repository<A>
 > extends PagingAndSortingRepositoryService<E, A, R> {
   private localValues: E[];
